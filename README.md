@@ -22,7 +22,20 @@ Any and all files contained in **DiseasedToast/DiseasedToastContent/Music** is p
 
 Files inside the **DiseasedToast/DiseasedToastContent** folder may or may **not** be original content created by **F16Gaming**. Please refer to the **README.md** file in **DiseasedToast/DiseasedToastContent** folder for more information.
 
+Additional License Notes
+------------------------
+
+**Additional notes about XNA GPA.**
+
+[XNA GPA ToU](http://xnagpa.net/forum//misc.php?action=rules)
+
+[XNA GPA ToU clarification by SixOfEleven](http://xnagpa.net/forum//viewtopic.php?id=103)
+
 Credits
 -------
 
 Thanks to **SixOfEleven** for the [XNA 4.0 RPG tutorials](http://xnagpa.net/xna4rpg.php).
+
+**Lots of thanks** to Kevin van der Laan (AKA Diseased Flame) for making the music for Diseased Toast!
+
+Thanks to [OpenGameArt](http://www.opengameart.org/) and its users for all the content. (More specific credits and info about the licences of OGA work can be found in the respective folders inside **DiseasedToast/DiseasedToastContent**).
