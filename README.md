@@ -7,7 +7,7 @@ TODO: Put some text here...
 About
 -----
 
-Join in on IRC at [KottNet](irc://irc.kottnet.net/#CSharp)!
+Join in on IRC at irc.kottnet.net, channel #CSharp.
 
 License
 -------
