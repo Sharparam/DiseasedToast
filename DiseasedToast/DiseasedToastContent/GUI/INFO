@@ -1,8 +1,11 @@
 List of authors and their works, and the license associated with the work.
 
+A list of sources (URLs) where the content was found is provided where applicable.
+
 -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 Author: lancel <http://opengameart.org/users/lancel>
 License: CC-BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>
+Sources: OpenGameArt <http://opengameart.org/content/health-and-mana-bars>
 Files: BlueBar.png, EmptyBar.png, GreenBar.png, RedBar.png
 Notes: The files: DiffBar.png, HealthBar.png, HealthBar.psd, ManaBar.png, ManaBar.psd,
          MaskBar.png, StaminaBar.pnd and StaminaBar.psd were all derivated from
