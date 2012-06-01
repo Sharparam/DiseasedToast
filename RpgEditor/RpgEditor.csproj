@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{892ABFCD-C88F-4D54-858A-D5B31B77DA68}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RpgEditor</RootNamespace>
+    <AssemblyName>RpgEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SlowCheetahTargets Condition=" '$(SlowCheetahTargets)'=='' ">$(LOCALAPPDATA)\Microsoft\MSBuild\SlowCheetah\v1\SlowCheetah.Transforms.targets</SlowCheetahTargets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Json.NET\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormArmor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormArmor.Designer.cs">
+      <DependentUpon>FormArmor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormArmorData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormArmorData.Designer.cs">
+      <DependentUpon>FormArmorData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormClasses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormClasses.Designer.cs">
+      <DependentUpon>FormClasses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormContainerData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContainerData.Designer.cs">
+      <DependentUpon>FormContainerData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormContainers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContainers.Designer.cs">
+      <DependentUpon>FormContainers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDetails.Designer.cs">
+      <DependentUpon>FormDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEntityData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEntityData.Designer.cs">
+      <DependentUpon>FormEntityData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormKeyData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormKeyData.Designer.cs">
+      <DependentUpon>FormKeyData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormKeys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormKeys.Designer.cs">
+      <DependentUpon>FormKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormNewGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNewGame.Designer.cs">
+      <DependentUpon>FormNewGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormShieldData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShieldData.Designer.cs">
+      <DependentUpon>FormShieldData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormShields.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShields.Designer.cs">
+      <DependentUpon>FormShields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSkillData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSkillData.Designer.cs">
+      <DependentUpon>FormSkillData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSkills.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSkills.Designer.cs">
+      <DependentUpon>FormSkills.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWeaponData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWeaponData.Designer.cs">
+      <DependentUpon>FormWeaponData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWeapons.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWeapons.Designer.cs">
+      <DependentUpon>FormWeapons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormArmor.resx">
+      <DependentUpon>FormArmor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormArmorData.resx">
+      <DependentUpon>FormArmorData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormClasses.resx">
+      <DependentUpon>FormClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormContainerData.resx">
+      <DependentUpon>FormContainerData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormContainers.resx">
+      <DependentUpon>FormContainers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDetails.resx">
+      <DependentUpon>FormDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEntityData.resx">
+      <DependentUpon>FormEntityData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormKeyData.resx">
+      <DependentUpon>FormKeyData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormKeys.resx">
+      <DependentUpon>FormKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNewGame.resx">
+      <DependentUpon>FormNewGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShieldData.resx">
+      <DependentUpon>FormShieldData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShields.resx">
+      <DependentUpon>FormShields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSkillData.resx">
+      <DependentUpon>FormSkillData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSkills.resx">
+      <DependentUpon>FormSkills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWeaponData.resx">
+      <DependentUpon>FormWeaponData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWeapons.resx">
+      <DependentUpon>FormWeapons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="App.Debug.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RpgLibrary\RpgLibrary.csproj">
+      <Project>{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}</Project>
+      <Name>RpgLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XRpgLibrary\XRpgLibrary.csproj">
+      <Project>{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}</Project>
+      <Name>XRpgLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UseGlobalSettings="True" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

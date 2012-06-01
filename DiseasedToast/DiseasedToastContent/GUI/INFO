@@ -7,12 +7,20 @@ Author: lancel <http://opengameart.org/users/lancel>
 License: CC-BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>
 Sources: OpenGameArt <http://opengameart.org/content/health-and-mana-bars>
 Files: BlueBar.png, EmptyBar.png, GreenBar.png, RedBar.png
-Notes: The files: DiffBar.png, HealthBar.png, HealthBar.psd, ManaBar.png, ManaBar.psd,
-         MaskBar.png, StaminaBar.pnd and StaminaBar.psd were all derivated from
-         the original files listed above. DiffBar.png was generated based on
-         data from EmptyBar.png and BlueBar.png.
+Notes: The files: DiffBar.png, HealthBar.png, HealthBar.psd, ManaBar.png,
+         ManaBar.psd, MaskBar.png, StaminaBar.pnd and StaminaBar.psd were all
+         derived from the original files listed above. DiffBar.png was
+         generated based on data from EmptyBar.png and BlueBar.png.
+-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+Author: qubodup <http://opengameart.org/users/qubodup>
+License: CC-BY 3.0 <http://creativecommons.org/licenses/by/3.0/>
+Files: pointer.png
 -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 Author: SixOfEleven <http://www.xnagpa.net/>
 License: CC-BY 3.0 <http://creativecommons.org/licenses/by/3.0/>
 Files: LeftArrowUp.png, ListBoxImage.png, RightArrowUp.png, StopBar.png
+Notes: This attribution may be incorrect on some files, if you are the creator
+         of the content in this section, please contact me via GitHub or
+         create a new issue on this project page.
 -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+
