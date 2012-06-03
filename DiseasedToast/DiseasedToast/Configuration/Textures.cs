@@ -31,38 +31,6 @@
 		{
 			get { return Sprites + @"\Player"; }
 		}
-		public static string MaleFighter
-		{
-			get { return PlayerSprites + @"\malefighter"; }
-		}
-		public static string MalePriest
-		{
-			get { return PlayerSprites + @"\malepriest"; }
-		}
-		public static string MaleRogue
-		{
-			get { return PlayerSprites + @"\malerogue"; }
-		}
-		public static string MaleWizard
-		{
-			get { return PlayerSprites + @"\malewizard"; }
-		}
-		public static string FemaleFighter
-		{
-			get { return PlayerSprites + @"\femalefighter"; }
-		}
-		public static string FemalePriest
-		{
-			get { return PlayerSprites + @"\femalepriest"; }
-		}
-		public static string FemaleRogue
-		{
-			get { return PlayerSprites + @"\femalerogue"; }
-		}
-		public static string FemaleWizard
-		{
-			get { return PlayerSprites + @"\femalewizard"; }
-		}
 
 		public const string Tilesets = "Tilesets";
 		public static string GrassTileset

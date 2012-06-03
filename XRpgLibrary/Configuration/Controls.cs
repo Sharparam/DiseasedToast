@@ -2,8 +2,8 @@
 {
 	public class Controls
 	{
-		public Keyboard Keyboard = new Keyboard();
-		public GamePad GamePad = new GamePad();
+		public readonly Keyboard Keyboard = new Keyboard();
+		public readonly GamePad GamePad = new GamePad();
 
 		public void Reset()
 		{
