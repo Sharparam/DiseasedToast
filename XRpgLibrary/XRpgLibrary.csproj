@@ -121,6 +121,11 @@
     <Compile Include="Audio\SoundInstance.cs" />
     <Compile Include="Characters\Character.cs" />
     <Compile Include="Characters\NonPlayerCharacter.cs" />
+    <Compile Include="Configuration\Button.cs" />
+    <Compile Include="Configuration\Controls.cs" />
+    <Compile Include="Configuration\GamePad.cs" />
+    <Compile Include="Configuration\Key.cs" />
+    <Compile Include="Configuration\Keyboard.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ControlManager.cs" />
     <Compile Include="Controls\Label.cs" />

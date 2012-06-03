@@ -1,8 +1,13 @@
 using System;
+using System.IO;
+using DiseasedToast.Configuration;
 using DiseasedToast.GameScreens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using RpgLibrary.Serializing;
 using XRpgLibrary.Audio;
+using XRpgLibrary.Configuration;
 using XRpgLibrary.Input;
 using XRpgLibrary.GameManagement;
 
@@ -21,10 +26,10 @@ namespace DiseasedToast
 
 		#endregion
 
-		#region XNA Fields
+		#region XNA Fields and Properties
 
 		private readonly GraphicsDeviceManager _graphics;
-		public SpriteBatch SpriteBatch;
+		public SpriteBatch SpriteBatch { get; private set; }
 
 		#endregion
 
@@ -38,6 +43,8 @@ namespace DiseasedToast
 		internal readonly SkillScreen SkillScreen;
 		internal readonly LoadGameScreen LoadGameScreen;
 		internal readonly GamePlayScreen GamePlayScreen;
+
+		internal readonly ControlsManager ControlsManager;
 
 		#endregion
 
@@ -84,6 +91,24 @@ namespace DiseasedToast
 			_log.Debug("Setting content root directory...");
 
 			Content.RootDirectory = "Content";
+
+			// Create necessary folders if they don't exist
+			try
+			{
+				if (!Directory.Exists(Paths.SettingsFolder))
+					Directory.CreateDirectory(Paths.SettingsFolder);
+			}
+			catch (IOException ex)
+			{
+				_log.Error("Failed to create necessary game folders. Exception details as follows...");
+				_log.Fatal("IOException: " + ex.Message + Environment.NewLine + "Details:", ex);
+				_log.Fatal("Game will now exit...");
+				Exit();
+			}
+
+			_log.Info("Loading controls...");
+			ControlsManager = new ControlsManager();
+			_log.Debug("Controls loaded!");
 
 			_log.Info("Creating components...");
 

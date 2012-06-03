@@ -1,40 +1,123 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System;
+using System.IO;
+using Microsoft.Xna.Framework.Input;
+using XRpgLibrary.Configuration;
 
 namespace DiseasedToast.Configuration
 {
-	internal static class Keyboard
+	internal enum Keyboard
 	{
-		public const Keys MoveForward = Keys.W;
-		public const Keys MoveBackwards = Keys.S;
-		public const Keys MoveLeft = Keys.A;
-		public const Keys MoveRight = Keys.D;
+		MoveForward		= Keys.W,
+		MoveBackwards	= Keys.S,
+		MoveLeft		= Keys.A,
+		MoveRight		= Keys.D,
 
-		public const Keys ArrowUp = Keys.Up;
-		public const Keys ArrowDown = Keys.Down;
-		public const Keys ArrowLeft = Keys.Left;
-		public const Keys ArrowRight = Keys.Right;
+		CameraUp	= Keys.Up,
+		CameraDown	= Keys.Down,
+		CameraLeft	= Keys.Left,
+		CameraRight	= Keys.Right,
 
-		public const Keys ZoomIn = Keys.PageUp;
-		public const Keys ZoomOut = Keys.PageDown;
-		public const Keys ToggleCamera = Keys.F;
-		public const Keys ResetCamera = Keys.C;
+		ZoomIn			= Keys.PageUp,
+		ZoomOut			= Keys.PageDown,
+		ToggleCamera	= Keys.F,
+		ResetCamera		= Keys.C
 	}
 
-	internal static class GamePad
+	internal enum GamePad
 	{
-		public const Buttons MoveForward = Buttons.LeftThumbstickUp;
-		public const Buttons MoveBackwards = Buttons.LeftThumbstickDown;
-		public const Buttons MoveLeft = Buttons.LeftThumbstickLeft;
-		public const Buttons MoveRight = Buttons.LeftThumbstickRight;
+		MoveForward		= Buttons.LeftThumbstickUp,
+		MoveBackwards	= Buttons.LeftThumbstickDown,
+		MoveLeft		= Buttons.LeftThumbstickLeft,
+		MoveRight		= Buttons.LeftThumbstickRight,
+		
+		CameraUp	= Buttons.DPadUp,
+		CameraDown	= Buttons.DPadDown,
+		CameraLeft	= Buttons.DPadLeft,
+		CameraRight	= Buttons.DPadRight,
+		
+		ZoomIn			= Buttons.LeftShoulder,
+		ZoomOut			= Buttons.RightShoulder,
+		ToggleCamera	= Buttons.RightStick,
+		ResetCamera		= Buttons.LeftStick
+	}
 
-		public const Buttons ArrowUp = Buttons.DPadUp;
-		public const Buttons ArrowDown = Buttons.DPadDown;
-		public const Buttons ArrowLeft = Buttons.DPadLeft;
-		public const Buttons ArrowRight = Buttons.DPadRight;
+	internal class ControlsManager
+	{
+		public static readonly string SettingsFile = Path.Combine(Paths.SettingsFolder, "Controls.settings");
 
-		public const Buttons ZoomIn = Buttons.LeftShoulder;
-		public const Buttons ZoomOut = Buttons.RightShoulder;
-		public const Buttons ToggleCamera = Buttons.RightStick;
-		public const Buttons ResetCamera = Buttons.LeftStick;
+		private readonly log4net.ILog _log;
+
+		public static Controls Controls { get; private set; }
+
+		internal ControlsManager() : this(SettingsFile)
+		{ }
+
+		internal ControlsManager(string file)
+		{
+			_log = RpgLibrary.Logging.LogManager.GetLogger(this);
+
+			if (File.Exists(file))
+			{
+				_log.Info("Loading controls from " + file + "...");
+				Controls = RpgLibrary.Serializing.Serializer.JsonDeserialize<Controls>(file);
+				_log.Debug("Controls loaded!");
+			}
+			else
+			{
+				Controls = new Controls();
+				SetDefaultControls();
+				_log.Debug("Saving controls to " + SettingsFile + "...");
+				RpgLibrary.Serializing.Serializer.JsonSerialize(Controls, SettingsFile);
+			}
+
+			CheckControls();
+		}
+
+		private void SetDefaultControls()
+		{
+			_log.Info("Setting default controls...");
+			_log.Debug("Setting default keyboard controls...");
+			foreach (var name in Enum.GetNames(typeof(Keyboard)))
+			{
+				var key = (Keys) Enum.Parse(typeof (Keyboard), name, false);
+				_log.Debug(name + " -> " + key);
+				Controls.Keyboard.Set(name, key);
+			}
+
+			_log.Debug("Setting default gamepad controls...");
+			foreach (var name in Enum.GetNames(typeof(GamePad)))
+			{
+				var button = (Buttons) Enum.Parse(typeof (GamePad), name, false);
+				_log.Debug(name + " -> " + button);
+				Controls.GamePad.Set(name, button);
+			}
+			_log.Debug("Default controls set!");
+		}
+
+		private void CheckControls()
+		{
+			_log.Info("Checking control mapping for missing keys...");
+			_log.Debug("Checking keyboard mapping...");
+			foreach (var name in Enum.GetNames(typeof(Keyboard)))
+			{
+				if (!Controls.Keyboard.Mapping.ContainsKey(name))
+				{
+					var key = (Keys) Enum.Parse(typeof (Keyboard), name, false);
+					_log.Debug("Entry for " + name + " missing, setting to " + key);
+					Controls.Keyboard.Set(name, key);
+				}
+			}
+			_log.Debug("Checking gamepad mapping...");
+			foreach (var name in Enum.GetNames(typeof(GamePad)))
+			{
+				if (!Controls.GamePad.Mapping.ContainsKey(name))
+				{
+					var button = (Buttons) Enum.Parse(typeof (GamePad), name, false);
+					_log.Debug("Entry for " + name + " missing, setting to " + button);
+					Controls.GamePad.Set(name, button);
+				}
+			}
+			_log.Debug("Done checking!");
+		}
 	}
 }
