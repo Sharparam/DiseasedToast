@@ -1,8 +1,10 @@
 ﻿using DiseasedToast.Components;
+using DiseasedToast.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using XRpgLibrary.Audio;
+using XRpgLibrary.Configuration;
 using XRpgLibrary.Input;
 using XRpgLibrary.World;
 using XRpgLibrary.TileEngine;

@@ -9,6 +9,12 @@ namespace XRpgLibrary.Configuration
 	{
 		public readonly Dictionary<string, Button> Mapping = new Dictionary<string, Button>();
 
+		public Buttons this[string key]
+		{
+			get { return Get(key); }
+			set { Set(key, value); }
+		}
+
 		public Buttons Get(string key)
 		{
 			if (Mapping.ContainsKey(key))

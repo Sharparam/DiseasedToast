@@ -10,7 +10,7 @@ namespace XRpgLibrary.Configuration
 
 		public Buttons Value
 		{
-			get { return _value ?? Default; }
+			get { return _value == null ? Default : (Buttons) _value; }
 			set { _value = value; }
 		}
 

@@ -87,7 +87,7 @@ namespace XRpgEditor
 		private void FormMainLoad(object sender, EventArgs e)
 		{
 			var viewPort = new Rectangle(0, 0, MapDisplay.Width, MapDisplay.Height);
-			_camera = new Camera(viewPort);
+			_camera = new Camera(viewPort, null);
 			_engine = new Engine(32, 32);
 
 			ControlTimer.Interval = MapUpdateInterval;
@@ -679,7 +679,7 @@ namespace XRpgEditor
 		{
 			var viewPort = new Rectangle(0, 0, MapDisplay.Width, MapDisplay.Height);
 			Vector2 cameraPosition = _camera.Position;
-			_camera = new Camera(viewPort, cameraPosition);
+			_camera = new Camera(viewPort, null, cameraPosition);
 			_camera.LockCamera();
 			MapDisplay.Invalidate();
 		}

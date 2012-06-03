@@ -1,4 +1,5 @@
 ﻿using System;
+using DiseasedToast.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -43,7 +44,7 @@ namespace DiseasedToast.Components
 		public Player(MainGame game, Character character)
 		{
 			_gameRef = game;
-			_camera = new Camera(_gameRef.ScreenRectangle);
+			_camera = new Camera(_gameRef.ScreenRectangle, ControlsManager.Controls);
 			_char = character;
 			
 			RpgLibrary.Logging.LogManager.GetLogger(this).Debug("Player object created.");
@@ -59,15 +60,15 @@ namespace DiseasedToast.Components
 			_camera.Update(gameTime);
 			Sprite.Update(gameTime);
 
-			if (InputHandler.KeyReleased(Keys.PageUp) ||
-				InputHandler.ButtonReleased(Buttons.LeftShoulder))
+			if (InputHandler.KeyReleased(ControlsManager.Controls.Keyboard["ZoomIn"]) ||
+				InputHandler.ButtonReleased(ControlsManager.Controls.GamePad["ZoomIn"]))
 			{
 				_camera.ZoomIn();
 				if (_camera.Mode == CameraMode.Follow)
 					_camera.LockToSprite(Sprite);
 			}
-			else if (InputHandler.KeyReleased(Keys.PageDown) ||
-				InputHandler.ButtonReleased(Buttons.RightShoulder))
+			else if (InputHandler.KeyReleased(ControlsManager.Controls.Keyboard["ZoomOut"]) ||
+				InputHandler.ButtonReleased(ControlsManager.Controls.GamePad["ZoomOut"]))
 			{
 				_camera.ZoomOut();
 				if (_camera.Mode == CameraMode.Follow)
@@ -81,30 +82,30 @@ namespace DiseasedToast.Components
 				int mouseX = InputHandler.MouseState.X + (int)_camera.Position.X;
 				int mouseY = InputHandler.MouseState.Y + (int)_camera.Position.Y;
 
-				if (InputHandler.KeyDown(Keys.W) ||
-					InputHandler.ButtonDown(Buttons.LeftThumbstickUp) ||
+				if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveUp"]) ||
+					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveUp"]) ||
 					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseY + MouseDetectOffset < Sprite.Position.Y + Sprite.Height / 2.0f))
 				{
 					Sprite.CurrentAnimation = AnimationKey.North;
 					motion.Y = -1;
 				}
-				else if (InputHandler.KeyDown(Keys.S) ||
-					InputHandler.ButtonDown(Buttons.LeftThumbstickDown) ||
+				else if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveDown"]) ||
+					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveDown"]) ||
 					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseY - MouseDetectOffset > Sprite.Position.Y + Sprite.Height / 2.0f))
 				{
 					Sprite.CurrentAnimation = AnimationKey.South;
 					motion.Y = 1;
 				}
 
-				if (InputHandler.KeyDown(Keys.A) ||
-					InputHandler.ButtonDown(Buttons.LeftThumbstickLeft) ||
+				if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveLeft"]) ||
+					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveLeft"]) ||
 					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseX + MouseDetectOffset < Sprite.Position.X + Sprite.Width / 2.0f))
 				{
 					Sprite.CurrentAnimation = AnimationKey.West;
 					motion.X = -1;
 				}
-				else if (InputHandler.KeyDown(Keys.D) ||
-					InputHandler.ButtonDown(Buttons.LeftThumbstickRight) ||
+				else if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveRight"]) ||
+					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveRight"]) ||
 					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseX - MouseDetectOffset > Sprite.Position.X + Sprite.Width / 2.0f))
 				{
 					Sprite.CurrentAnimation = AnimationKey.East;
@@ -128,8 +129,8 @@ namespace DiseasedToast.Components
 				_elapsed = TimeSpan.Zero;
 			}
 
-			if (InputHandler.KeyReleased(Keys.F) ||
-				InputHandler.ButtonReleased(Buttons.RightTrigger) ||
+			if (InputHandler.KeyReleased(ControlsManager.Controls.Keyboard["ToggleCamera"]) ||
+				InputHandler.ButtonReleased(ControlsManager.Controls.GamePad["ToggleCamera"]) ||
 				InputHandler.MouseReleased(Nuclex.Input.MouseButtons.Right))
 			{
 				_camera.ToggleCameraMode();
@@ -140,8 +141,8 @@ namespace DiseasedToast.Components
 			if (_camera.Mode == CameraMode.Follow)
 				return;
 
-			if (InputHandler.KeyReleased(Keys.C) ||
-			    InputHandler.ButtonReleased(Buttons.LeftTrigger) ||
+			if (InputHandler.KeyReleased(ControlsManager.Controls.Keyboard["ResetCamera"]) ||
+			    InputHandler.ButtonReleased(ControlsManager.Controls.GamePad["ResetCamera"]) ||
 			    InputHandler.MouseReleased(Nuclex.Input.MouseButtons.Middle))
 			{
 				_camera.LockToSprite(Sprite);

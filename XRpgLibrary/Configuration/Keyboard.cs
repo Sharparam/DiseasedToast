@@ -9,6 +9,19 @@ namespace XRpgLibrary.Configuration
 	{
 		public readonly Dictionary<string, Key> Mapping = new Dictionary<string, Key>();
 
+		public Keys this[string key]
+		{
+			get { return Get(key); }
+			set { Set(key, value); }
+		}
+
+		public Keys GetDefault(string key)
+		{
+			if (Mapping.ContainsKey(key))
+				return Mapping[key].Default;
+			throw new InvalidOperationException("Key is not defined: " + key);
+		}
+
 		public Keys Get(string key)
 		{
 			if (Mapping.ContainsKey(key))

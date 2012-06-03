@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
+using Newtonsoft.Json;
+
 namespace XRpgLibrary.Configuration
 {
-	public struct Key
+	public class Key
 	{
 		private Keys? _value;
 
@@ -10,7 +12,7 @@ namespace XRpgLibrary.Configuration
 
 		public Keys Value
 		{
-			get { return _value ?? Default; }
+			get { return _value == null ? Default : (Keys) _value; }
 			set { _value = value; }
 		}
 

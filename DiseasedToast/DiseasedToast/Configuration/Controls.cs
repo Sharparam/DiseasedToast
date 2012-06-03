@@ -7,10 +7,10 @@ namespace DiseasedToast.Configuration
 {
 	internal enum Keyboard
 	{
-		MoveForward		= Keys.W,
-		MoveBackwards	= Keys.S,
-		MoveLeft		= Keys.A,
-		MoveRight		= Keys.D,
+		MoveUp		= Keys.W,
+		MoveDown	= Keys.S,
+		MoveLeft	= Keys.A,
+		MoveRight	= Keys.D,
 
 		CameraUp	= Keys.Up,
 		CameraDown	= Keys.Down,
@@ -25,10 +25,10 @@ namespace DiseasedToast.Configuration
 
 	internal enum GamePad
 	{
-		MoveForward		= Buttons.LeftThumbstickUp,
-		MoveBackwards	= Buttons.LeftThumbstickDown,
-		MoveLeft		= Buttons.LeftThumbstickLeft,
-		MoveRight		= Buttons.LeftThumbstickRight,
+		MoveUp		= Buttons.LeftThumbstickUp,
+		MoveDown	= Buttons.LeftThumbstickDown,
+		MoveLeft	= Buttons.LeftThumbstickLeft,
+		MoveRight	= Buttons.LeftThumbstickRight,
 		
 		CameraUp	= Buttons.DPadUp,
 		CameraDown	= Buttons.DPadDown,
@@ -100,21 +100,31 @@ namespace DiseasedToast.Configuration
 			_log.Debug("Checking keyboard mapping...");
 			foreach (var name in Enum.GetNames(typeof(Keyboard)))
 			{
+				var key = (Keys) Enum.Parse(typeof (Keyboard), name, false);
 				if (!Controls.Keyboard.Mapping.ContainsKey(name))
-				{
-					var key = (Keys) Enum.Parse(typeof (Keyboard), name, false);
+				{	
 					_log.Debug("Entry for " + name + " missing, setting to " + key);
 					Controls.Keyboard.Set(name, key);
+				}
+				else if (Controls.Keyboard.Mapping[name].Default != key)
+				{
+					_log.Debug("Default setting for " + name + " incorect, updating to " + key);
+					Controls.Keyboard.SetDefault(name, key);
 				}
 			}
 			_log.Debug("Checking gamepad mapping...");
 			foreach (var name in Enum.GetNames(typeof(GamePad)))
 			{
+				var button = (Buttons)Enum.Parse(typeof(GamePad), name, false);
 				if (!Controls.GamePad.Mapping.ContainsKey(name))
 				{
-					var button = (Buttons) Enum.Parse(typeof (GamePad), name, false);
 					_log.Debug("Entry for " + name + " missing, setting to " + button);
 					Controls.GamePad.Set(name, button);
+				}
+				else if (Controls.GamePad.Mapping[name].Default != button)
+				{
+					_log.Debug("Default setting for " + name + " incorrect, updating to " + button);
+					Controls.GamePad.SetDefault(name, button);
 				}
 			}
 			_log.Debug("Done checking!");

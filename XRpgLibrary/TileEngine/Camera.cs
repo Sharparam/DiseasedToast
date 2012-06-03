@@ -12,6 +12,7 @@ namespace XRpgLibrary.TileEngine
 	{
 		#region Fields
 
+		private Configuration.Controls _controls;
 		private float _speed;
 		private float _zoom;
 		private Rectangle _viewport;
@@ -54,11 +55,12 @@ namespace XRpgLibrary.TileEngine
 
 		#region Constructors
 
-		public Camera(Rectangle viewport) : this(viewport, Vector2.Zero)
+		public Camera(Rectangle viewport, Configuration.Controls controls) : this(viewport, controls, Vector2.Zero)
 		{ }
 
-		public Camera(Rectangle viewport, Vector2 position, CameraMode mode = CameraMode.Follow)
+		public Camera(Rectangle viewport, Configuration.Controls controls, Vector2 position, CameraMode mode = CameraMode.Follow)
 		{
+			_controls = controls;
 			Speed = 4.0f;
 			_zoom = 1.0f;
 			_viewport = viewport;
@@ -72,26 +74,26 @@ namespace XRpgLibrary.TileEngine
 
 		public void Update(GameTime gameTime)
 		{
-			if (_mode == CameraMode.Follow)
+			if (_mode == CameraMode.Follow || _controls == null)
 				return;
 
 			Vector2 motion = Vector2.Zero;
 
-			if (InputHandler.KeyDown(Keys.Left) ||
-				InputHandler.ButtonDown(Buttons.RightThumbstickLeft) ||
+			if (InputHandler.KeyDown(_controls.Keyboard["CameraLeft"]) ||
+				InputHandler.ButtonDown(_controls.GamePad["CameraLeft"]) ||
 				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Right) && InputHandler.MouseState.X + 1 < Viewport.Width / 2))
 				motion.X = -Speed;
-			else if (InputHandler.KeyDown(Keys.Right) ||
-				InputHandler.ButtonDown(Buttons.RightThumbstickRight) ||
+			else if (InputHandler.KeyDown(_controls.Keyboard["CameraRight"]) ||
+				InputHandler.ButtonDown(_controls.GamePad["CameraRight"]) ||
 				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Right) && InputHandler.MouseState.X - 1 > Viewport.Width / 2))
 				motion.X = Speed;
 
-			if (InputHandler.KeyDown(Keys.Up) ||
-				InputHandler.ButtonDown(Buttons.RightThumbstickUp) ||
+			if (InputHandler.KeyDown(_controls.Keyboard["CameraUp"]) ||
+				InputHandler.ButtonDown(_controls.GamePad["CameraUp"]) ||
 				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Right) && InputHandler.MouseState.Y + 1 < Viewport.Height / 2))
 				motion.Y = -Speed;
-			else if (InputHandler.KeyDown(Keys.Down) ||
-				InputHandler.ButtonDown(Buttons.RightThumbstickDown) ||
+			else if (InputHandler.KeyDown(_controls.Keyboard["CameraDown"]) ||
+				InputHandler.ButtonDown(_controls.GamePad["CameraDown"]) ||
 				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Right) && InputHandler.MouseState.Y - 1 > Viewport.Height / 2))
 				motion.Y = Speed;
 

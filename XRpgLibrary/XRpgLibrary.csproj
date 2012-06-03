@@ -92,6 +92,10 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.5.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Json.NET\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Nuclex.Input">
       <HintPath>E:\Program Files (x86)\Nuclex Framework\xna-4.0-x86\Nuclex.Input.dll</HintPath>
     </Reference>
