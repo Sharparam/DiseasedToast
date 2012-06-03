@@ -5,6 +5,7 @@ using XRpgLibrary.Configuration;
 
 namespace DiseasedToast.Configuration
 {
+	// ReSharper disable UnusedMember.Global
 	internal enum Keyboard
 	{
 		MoveUp		= Keys.W,
@@ -40,6 +41,7 @@ namespace DiseasedToast.Configuration
 		ToggleCamera	= Buttons.RightStick,
 		ResetCamera		= Buttons.LeftStick
 	}
+	// ReSharper restore UnusedMember.Global
 
 	internal class ControlsManager
 	{
