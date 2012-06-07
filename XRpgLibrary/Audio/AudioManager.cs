@@ -241,7 +241,8 @@ namespace XRpgLibrary.Audio
 
 			ResetSongs();
 
-			_songs[name].Play(volume.HasValue ? volume.Value : _songs[name].Volume);
+			//_songs[name].Play(volume.HasValue ? volume.Value : _songs[name].Volume);
+			_songs[name].Play(volume ?? _songs[name].Volume);
 			NowPlaying = name;
 
 			Log.Info("Playing song: " + NowPlaying + " (" + MediaPlayer.Volume + ")");
@@ -296,7 +297,7 @@ namespace XRpgLibrary.Audio
 			Log.Debug("Fading in song. (" + (targetVolume ?? _songs[name].Volume) + ")");
 
 			_fadeSong = name;
-			_fadeTarget = targetVolume.HasValue ? targetVolume.Value : _songs[name].Volume;
+			_fadeTarget = targetVolume ?? _songs[name].Volume;
 			_fade = FadeType.FadeIn;
 			PlaySong(name, 0.0f);
 		}
