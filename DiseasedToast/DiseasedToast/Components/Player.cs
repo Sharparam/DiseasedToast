@@ -37,6 +37,11 @@ namespace DiseasedToast.Components
 			get { return _char.Sprite; }
 		}
 
+		public Character Character
+		{
+			get { return _char; }
+		}
+
 		#endregion
 
 		#region Constructors

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using RpgLibrary.Entities;
+using RpgLibrary.Skills;
 
 namespace RpgLibrary
 {
@@ -36,7 +39,37 @@ namespace RpgLibrary
 			return Rand.Next(0, (int) dice) + 1;
 		}
 
-		#endregion Methods
+		public static bool UseSkill(Skill skill, Entity entity, Difficulty difficulty)
+		{
+			int target = skill.Value + (int) difficulty
+				+ skill.ClassModifiers.Keys.Where(key => key == entity.Class).Sum(key => skill.ClassModifiers[key])
+				+ entity.SkillModifiers.Where(mod => mod.Modifying == skill.Name).Sum(mod => mod.Amount);
 
+			switch(skill.PrimaryAttribute.ToLower())
+			{
+				case "strength":
+					target += Skill.AttributeModifier(entity.Strength);
+					break;
+				case "dexterity":
+					target += Skill.AttributeModifier(entity.Dexterity);
+					break;
+				case "cunning":
+					target += Skill.AttributeModifier(entity.Cunning);
+					break;
+				case "willpower":
+					target += Skill.AttributeModifier(entity.Willpower);
+					break;
+				case "magic":
+					target += Skill.AttributeModifier(entity.Magic);
+					break;
+				case "constitution":
+					target += Skill.AttributeModifier(entity.Constitution);
+					break;
+			}
+
+			return RollDice(DiceType.D100) <= target;
+		}
+
+		#endregion Methods
 	}
 }

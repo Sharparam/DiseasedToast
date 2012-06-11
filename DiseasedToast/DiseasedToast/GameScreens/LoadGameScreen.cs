@@ -37,7 +37,7 @@ namespace DiseasedToast.GameScreens
 
 		#endregion
 
-		#region Methods
+		#region XNA Methods
 
 		protected override void LoadContent()
 		{
@@ -102,7 +102,8 @@ namespace DiseasedToast.GameScreens
 		private void ExitLinkSelected(object sender, EventArgs e)
 		{
 			Log.Debug("ExitLink selected, popping game state...");
-			StateManager.PopState();
+			//StateManager.PopState();
+			Transition(ChangeType.Pop);
 		}
 
 		private void LoadListBoxSelected(object sender, EventArgs e)
@@ -113,6 +114,7 @@ namespace DiseasedToast.GameScreens
 			ControlManager.AcceptInput = true;
 
 			//StateManager.ChangeState(GameRef.GamePlayScreen);
+			//Transition(ChangeType.Change, GameRef.GamePlayScreen);
 			//CreatePlayer();
 			//CreateWorld();
 		}

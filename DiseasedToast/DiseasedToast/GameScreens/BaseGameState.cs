@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +16,12 @@ namespace DiseasedToast.GameScreens
 
 		protected readonly MainGame GameRef;
 		protected ControlManager ControlManager;
-		protected PlayerIndex PlayerIndexInControl;
+		protected readonly PlayerIndex PlayerIndexInControl;
+		protected BaseGameState TransitionTo;
+		protected bool Transitioning;
+		protected ChangeType ChangeType;
+		protected TimeSpan TransitionTimer;
+		protected TimeSpan TransitionDelay = TimeSpan.FromSeconds(0.5);
 
 		#endregion
 
@@ -56,6 +62,28 @@ namespace DiseasedToast.GameScreens
 
 		public override void Update(GameTime gameTime)
 		{
+			if (Transitioning)
+			{
+				TransitionTimer += gameTime.ElapsedGameTime;
+				if (TransitionTimer >= TransitionDelay)
+				{
+					Transitioning = false;
+					ControlManager.AcceptInput = true;
+					switch(ChangeType)
+					{
+						case ChangeType.Change:
+							StateManager.ChangeState(TransitionTo);
+							break;
+						case ChangeType.Pop:
+							StateManager.PopState();
+							break;
+						case ChangeType.Push:
+							StateManager.PushState(TransitionTo);
+							break;
+					}
+				}
+			}
+
 			GameRef.AudioManager.Update(gameTime);
 
 			base.Update(gameTime);
@@ -64,6 +92,15 @@ namespace DiseasedToast.GameScreens
 		public override void Draw(GameTime gameTime)
 		{
 			base.Draw(gameTime);
+		}
+
+		public virtual void Transition(ChangeType change, BaseGameState gameState = null)
+		{
+			ControlManager.AcceptInput = false;
+			Transitioning = true;
+			ChangeType = change;
+			TransitionTo = gameState;
+			TransitionTimer = TimeSpan.Zero;
 		}
 
 		#endregion

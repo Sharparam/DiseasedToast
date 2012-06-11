@@ -134,12 +134,14 @@ namespace DiseasedToast.GameScreens
 			if (sender == _startGame)
 			{
 				Log.Info("Entering character generator screen...");
-				StateManager.PushState(GameRef.CharacterGeneratorScreen);
+				//StateManager.PushState(GameRef.CharacterGeneratorScreen);
+				Transition(ChangeType.Push, GameRef.CharacterGeneratorScreen);
 			}
 			else if (sender == _loadGame)
 			{
 				Log.Info("Entering load game screen...");
-				StateManager.PushState(GameRef.LoadGameScreen);
+				//StateManager.PushState(GameRef.LoadGameScreen);
+				Transition(ChangeType.Push, GameRef.LoadGameScreen);
 			}
 			else if (sender == _exitGame)
 			{

@@ -97,7 +97,8 @@ namespace DiseasedToast.GameScreens
 		private void StartLabelSelected(object sender, EventArgs e)
 		{
 			Log.Info("Pushing start menu screen...");
-			StateManager.PushState(GameRef.StartMenuScreen);
+			//StateManager.PushState(GameRef.StartMenuScreen);
+			Transition(ChangeType.Push, GameRef.StartMenuScreen);
 		}
 
 		#endregion

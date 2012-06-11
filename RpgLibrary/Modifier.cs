@@ -2,10 +2,11 @@
 
 namespace RpgLibrary
 {
-	public struct Modifier
+	public class Modifier
 	{
 		#region Fields
 
+		public string Modifying;
 		public int Amount;
 		public int Duration;
 		public TimeSpan TimeLeft;
@@ -17,8 +18,9 @@ namespace RpgLibrary
 
 		#region Constructors
 
-		public Modifier(int amount, int duration = -1)
+		public Modifier(string modifying, int amount, int duration = -1)
 		{
+			Modifying = modifying;
 			Amount = amount;
 			Duration = duration;
 			TimeLeft = duration == -1 ? TimeSpan.Zero : TimeSpan.FromSeconds(duration);

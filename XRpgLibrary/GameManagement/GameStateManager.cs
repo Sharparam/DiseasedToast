@@ -5,6 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace XRpgLibrary.GameManagement
 {
+	public enum ChangeType
+	{
+		Change,
+		Pop,
+		Push
+	}
+
 	/// <summary>
 	/// This is a game component that implements IUpdateable.
 	/// </summary>

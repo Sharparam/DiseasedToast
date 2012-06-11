@@ -1,26 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using DiseasedToast.Components;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RpgLibrary.Entities;
+
 using RpgLibrary.Items;
+using RpgLibrary.Skills;
+using RpgLibrary.Entities;
 using RpgLibrary.Items.Data;
 using RpgLibrary.Serializing;
-using XRpgLibrary.Characters;
+
 using XRpgLibrary.Items;
-using XRpgLibrary.Controls;
-using XRpgLibrary.GameManagement;
 using XRpgLibrary.Input;
-using XRpgLibrary.Sprites;
-using XRpgLibrary.TileEngine;
 using XRpgLibrary.World;
+using XRpgLibrary.Sprites;
+using XRpgLibrary.Controls;
+using XRpgLibrary.Characters;
+using XRpgLibrary.TileEngine;
+using XRpgLibrary.GameManagement;
+
+using DiseasedToast.Components;
 
 namespace DiseasedToast.GameScreens
 {
 	internal class CharacterGeneratorScreen : BaseGameState
 	{
 		#region Fields
+
+		private const int SkillPointCount = 10;
 
 		private LeftRightSelector _genderSelector;
 		private LeftRightSelector _classSelector;
@@ -134,9 +141,9 @@ namespace DiseasedToast.GameScreens
 			_classSelector.SelectionChanged += SelectionChanged;
 			ControlManager.Add(_classSelector);
 
-			var linkLabel1 = new LinkLabel {Text = "Accept this character", Position = new Vector2(label1.Position.X, 300)};
-			linkLabel1.Selected += LinkLabel1Selected;
-			ControlManager.Add(linkLabel1);
+			var acceptLabel = new LinkLabel {Text = "Accept this character", Position = new Vector2(label1.Position.X, 300)};
+			acceptLabel.Selected += AcceptLabelSelected;
+			ControlManager.Add(acceptLabel);
 
 			_characterImage = new PictureBox(_characterImages[0, 0], new Rectangle(500, 200, 96, 96), new Rectangle(0, 0, 32, 32));
 			ControlManager.Add(_characterImage);
@@ -161,7 +168,7 @@ namespace DiseasedToast.GameScreens
 			_characterImage.Image = _characterImages[_genderSelector.SelectedIndex, _classSelector.SelectedIndex];
 		}
 
-		private void LinkLabel1Selected(object sender, EventArgs e)
+		private void AcceptLabelSelected(object sender, EventArgs e)
 		{
 			Log.Debug("LinkLabel1 selected!");
 			InputHandler.Flush();
@@ -170,9 +177,11 @@ namespace DiseasedToast.GameScreens
 			Log.Info("Creating world...");
 			CreateWorld();
 			Log.Info("Setting skill points...");
-			GameRef.SkillScreen.SkillPoints = 25;
+			GameRef.SkillScreen.SkillPoints = SkillPointCount;
 			Log.Info("Changing to SkillScreen...");
-			StateManager.ChangeState(GameRef.SkillScreen);
+			//StateManager.ChangeState(GameRef.SkillScreen);7
+			Transition(ChangeType.Change, GameRef.SkillScreen);
+			GameRef.SkillScreen.SetTarget(GamePlayScreen.Player.Character);
 		}
 
 		private void CreatePlayer()
@@ -188,6 +197,13 @@ namespace DiseasedToast.GameScreens
 			var sprite = new AnimatedSprite(_characterImages[_genderSelector.SelectedIndex, _classSelector.SelectedIndex], animations);
 			var gender = _genderSelector.SelectedIndex == 1 ? EntityGender.Female : EntityGender.Male;
 			var entity = new Entity("Pat", DataManager.EntityData[_classSelector.SelectedItem], gender, EntityType.Character);
+
+			foreach (var key in DataManager.SkillData.Keys)
+			{
+				var skill = Skill.FromSkillData(DataManager.SkillData[key]);
+				entity.Skills.Add(key, skill);
+			}
+
 			var character = new Character(entity, sprite);
 			GamePlayScreen.Player = new Player(GameRef, character);
 
