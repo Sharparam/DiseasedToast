@@ -3,6 +3,7 @@ using DiseasedToast.Configuration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using XRpgLibrary.Audio;
 using XRpgLibrary.Configuration;
 using XRpgLibrary.Controls;
@@ -31,7 +32,7 @@ namespace DiseasedToast.GameScreens
 
 #if DEBUG
 		private const string PositionFormat = "Position: (REAL) < [X] {0:0000.00000} [Y] {1:0000.00000} > (ENGINE) < [X] {2:000.00000} [Y] {3:000.00000} >";
-		private const string LevelFormat = "LEVEL: #{0}, ";
+		private const string LevelFormat = "LEVEL: #{0}. Now Playing: {1}";
 		private const string PlayerFormat = "PLAYER[{0}]: HP( {1:000} / {2:000} ), POW( {3:000} / {4:000} ), STA( {5:000} / {6:000} )";
 		private const string StatFormat = "STATS: ";
 		private SpriteFont _debugFont;
@@ -39,6 +40,9 @@ namespace DiseasedToast.GameScreens
 		private Label _levelLabel;
 		private Label _playerLabel;
 		private Label _pStatLabel;
+		private Label _infoLabel;
+		private Label _helpLabel;
+		private bool _showDebugHelp;
 #endif
 
 		#endregion
@@ -127,11 +131,33 @@ namespace DiseasedToast.GameScreens
 				TabStop = false
 			};
 			_playerLabel.AutoSize();
+
+			_infoLabel = new Label
+			{
+				Enabled = true,
+				Visible = true,
+				Font = _debugFont,
+				Name = "InfoLabel",
+				Position = new Vector2(10, 500),
+				Text = "KEYS: B = Battle Theme, M = Normal Theme",
+				TabStop = false
+			};
+			_infoLabel.AutoSize();
+
+			_helpLabel = new Label
+			{
+				Font = _debugFont,
+				Name = "HelpLabel",
+				Position = new Vector2(10, 700),
+				Text = "H = Toggle Help"
+			};
+			_helpLabel.AutoSize();
 #endif
 
-			GameRef.AudioManager.AddSong(new Song("Village", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\Village"), 0.1f));
+			GameRef.AudioManager.AddSong(new Song("Level0_bgm", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\Level0_bgm"), 0.1f));
+			GameRef.AudioManager.AddSong(new Song("BattleTest", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\BattleTest")));
 
-			GameRef.AudioManager.FadeOutSong("Village", true);
+			GameRef.AudioManager.FadeOutSong("Level0_bgm", true);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -144,8 +170,16 @@ namespace DiseasedToast.GameScreens
 			_staminaBar.Update(MathHelper.Clamp(_player.Camera.Position.X / _player.Camera.Viewport.Width, 0.0f, 1.0f));
 
 #if DEBUG
+			if (InputHandler.KeyReleased(Keys.H))
+				_showDebugHelp = !_showDebugHelp;
+
+			if (InputHandler.KeyReleased(Keys.B))
+				GameRef.AudioManager.PlaySong("BattleTest");
+			else if (InputHandler.KeyReleased(Keys.M))
+				GameRef.AudioManager.PlaySong("Level0_bgm");
+
 			_posLabel.Text = string.Format(PositionFormat, _player.Sprite.Position.X, _player.Sprite.Position.Y, _player.Sprite.Position.X / Engine.TileWidth, _player.Sprite.Position.Y / Engine.TileHeight);
-			_levelLabel.Text = string.Format(LevelFormat, _world.CurrentLevel);
+			_levelLabel.Text = string.Format(LevelFormat, _world.CurrentLevel, GameRef.AudioManager.NowPlaying);
 			_playerLabel.Text = string.Format(PlayerFormat, _player.Character.Entity.Name,
 			                                  _player.Character.Entity.Health.Current, _player.Character.Entity.Health.Maximum,
 			                                  _player.Character.Entity.Mana.Current, _player.Character.Entity.Mana.Maximum,
@@ -189,14 +223,20 @@ namespace DiseasedToast.GameScreens
 			_posLabel.Draw(GameRef.SpriteBatch);
 			_levelLabel.Draw(GameRef.SpriteBatch);
 			_playerLabel.Draw(GameRef.SpriteBatch);
+			if (_showDebugHelp)
+				_infoLabel.Draw(GameRef.SpriteBatch);
+			_helpLabel.Draw(GameRef.SpriteBatch);
 #endif
 
 			GameRef.SpriteBatch.End();
 		}
 
-		#endregion
+		#endregion XNA Methods
 
 		#region Abstract Methods
 		#endregion
+
+		#region Methods
+		#endregion Methods
 	}
 }

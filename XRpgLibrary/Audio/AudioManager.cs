@@ -8,8 +8,26 @@ using Microsoft.Xna.Framework.Media;
 
 namespace XRpgLibrary.Audio
 {
+	public class SongChangedEventArgs : EventArgs
+	{
+		public string Name { get; private set; }
+
+		public SongChangedEventArgs(string name)
+		{
+			Name = name;
+		}
+	}
+
+	public delegate void SongChangedEventHandler(SongChangedEventArgs e);
+
 	public class AudioManager
 	{
+		#region Events
+
+		public event SongChangedEventHandler SongChanged;
+
+		#endregion
+
 		#region Fields
 
 		private const int MAX_SFX = 50;
@@ -17,6 +35,8 @@ namespace XRpgLibrary.Audio
 		private static readonly log4net.ILog Log = RpgLibrary.Logging.LogManager.GetLogger(typeof (AudioManager));
 
 		private static readonly SoundInstance[] SoundInstances = new SoundInstance[MAX_SFX];
+
+		private string _nowPlaying;
 
 		private readonly Dictionary<string, Sound> _sounds;
 		private readonly Dictionary<string, Song> _songs;
@@ -44,7 +64,15 @@ namespace XRpgLibrary.Audio
 			get { return _songs; }
 		}
 
-		public string NowPlaying { get; private set; }
+		public string NowPlaying
+		{
+			get { return _nowPlaying; }
+			private set
+			{
+				_nowPlaying = value;
+				OnSongChanged(_nowPlaying);
+			}
+		}
 
 		public bool SongPlaying { get { return NowPlaying != null; } }
 
@@ -145,6 +173,17 @@ namespace XRpgLibrary.Audio
 			{
 				_fadeElapsed = TimeSpan.Zero;
 			}
+		}
+
+		private void OnSongChanged(string name)
+		{
+			OnSongChanged(new SongChangedEventArgs(name));
+		}
+
+		private void OnSongChanged(SongChangedEventArgs e)
+		{
+			if (SongChanged != null)
+				SongChanged(e);
 		}
 
 		private void ResetSongs()
