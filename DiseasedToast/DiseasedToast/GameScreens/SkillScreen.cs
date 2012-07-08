@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-
+using F16Gaming.Game.RPGLibrary.Characters;
+using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.GameManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-using RpgLibrary.Skills;
-
-using XRpgLibrary;
-using XRpgLibrary.Controls;
-using XRpgLibrary.Characters;
-using XRpgLibrary.GameManagement;
-
 using DiseasedToast.Components;
 
 namespace DiseasedToast.GameScreens
@@ -112,6 +106,7 @@ namespace DiseasedToast.GameScreens
 		{
 			Log.Debug("AcceptLabel selected, changing to GamePlayScreen...");
 			_undoStack.Clear();
+			GameRef.AudioManager.Song.GetSong("TitleScreen").BeginEndFade();
 			Transition(ChangeType.Change, GameRef.GamePlayScreen);
 		}
 

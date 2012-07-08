@@ -201,6 +201,7 @@
       <Name>TitleScreen</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +255,7 @@
       <Name>Level0_bgm</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +263,7 @@
       <Name>BattleTest</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

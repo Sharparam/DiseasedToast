@@ -1,12 +1,11 @@
 ﻿using System;
-
+using F16Gaming.Game.RPGLibrary.Audio;
+using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.GameManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-using XRpgLibrary.Controls;
-using XRpgLibrary.GameManagement;
 
 namespace DiseasedToast.GameScreens
 {
@@ -50,21 +49,36 @@ namespace DiseasedToast.GameScreens
 			_startLabel.Selected += StartLabelSelected;
 
 			ControlManager.Add(_startLabel);
-			
+
+			var smallFont = content.Load<SpriteFont>(@"Fonts\SmallFont");
+
+			var copyLabel = new Label
+			{
+				Text = "Copyright (c) 2012 by Adam Hellberg",
+				Color = Color.White,
+				Font = smallFont
+			};
+			copyLabel.CenterHorizontal(GameRef.ScreenRectangle.Width, 690);
+
+			ControlManager.Add(copyLabel);
+
 			var musicLabel = new Label
 			{
 				Text = "Music Copyright (c) 2012 by Kevin van der Laan [Diseased Flame]",
 				Color = Color.White,
-				Font = content.Load<SpriteFont>(@"Fonts\SmallFont")
+				Font = smallFont
 			};
-
 			musicLabel.CenterHorizontal(GameRef.ScreenRectangle.Width, 720);
 
 			ControlManager.Add(musicLabel);
 
 			//GameRef.AudioManager.AddSong(new XRpgLibrary.Audio.Song("TitleScreen", content.Load<Song>(@"Music\TitleScreen")));
 			//GameRef.AudioManager.PlaySong("TitleScreen");
-			GameRef.AudioManager.PlaySong(GameRef.AudioManager.AddSong(new XRpgLibrary.Audio.Song("TitleScreen", content.Load<Song>(@"Music\TitleScreen"))).Name);
+			var song = GameRef.AudioManager.Song.LoadSong(@"Content\Music\TitleScreen.mp3", "TitleScreen");
+			song.SetEndFade(new FadeInfo(1.0f, 0.0f, -0.01f, TimeSpan.FromMilliseconds(15)));
+			
+			//GameRef.AudioManager.PlaySong(GameRef.AudioManager.AddSong(new F16Gaming.Game.RPGLibrary.Audio.Song("TitleScreen", content.Load<Song>(@"Music\TitleScreen"))).Name);
+			GameRef.AudioManager.Song.Play(song);
 		}
 
 		public override void Update(GameTime gameTime)

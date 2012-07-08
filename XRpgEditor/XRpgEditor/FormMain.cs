@@ -3,15 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
-
+using F16Gaming.Game.RPGLibrary.Serializing;
+using F16Gaming.Game.RPGLibrary.TileEngine;
+using F16Gaming.Game.RPGLibrary.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-using RpgLibrary.World;
-using RpgLibrary.Serializing;
-
-using XRpgLibrary.TileEngine;
-
 using Color = Microsoft.Xna.Framework.Color;
 using GDIColor = System.Drawing.Color;
 using GDIImage = System.Drawing.Image;

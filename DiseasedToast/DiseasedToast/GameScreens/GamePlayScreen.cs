@@ -1,16 +1,15 @@
 ﻿using DiseasedToast.Components;
 using DiseasedToast.Configuration;
+using F16Gaming.Game.RPGLibrary.Audio;
+using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.GameManagement;
+using F16Gaming.Game.RPGLibrary.Input;
+using F16Gaming.Game.RPGLibrary.TileEngine;
+using F16Gaming.Game.RPGLibrary.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using XRpgLibrary.Audio;
-using XRpgLibrary.Configuration;
-using XRpgLibrary.Controls;
-using XRpgLibrary.Input;
-using XRpgLibrary.World;
-using XRpgLibrary.TileEngine;
-using XRpgLibrary.GameManagement;
 
 namespace DiseasedToast.GameScreens
 {
@@ -42,6 +41,7 @@ namespace DiseasedToast.GameScreens
 		private Label _pStatLabel;
 		private Label _infoLabel;
 		private Label _helpLabel;
+		private bool _debugEnabled = true;
 		private bool _showDebugHelp;
 #endif
 
@@ -154,10 +154,19 @@ namespace DiseasedToast.GameScreens
 			_helpLabel.AutoSize();
 #endif
 
-			GameRef.AudioManager.AddSong(new Song("Level0_bgm", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\Level0_bgm"), 0.1f));
-			GameRef.AudioManager.AddSong(new Song("BattleTest", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\BattleTest")));
+			var song = GameRef.AudioManager.Song.LoadSong(@"Content\Music\Level0_bgm.mp3", "Level0_bgm", 0.1f);
+			song.SetStartFade(new FadeInfo(0.0f, 0.1f));
+			song.SetEndFade(new FadeInfo(0.1f, 0.0f, -0.01f));
+			//GameRef.AudioManager.AddSong(new Song("Level0_bgm", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\Level0_bgm"), 0.1f));
+			//GameRef.AudioManager.AddSong(new Song("BattleTest", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\BattleTest")));
+			var bSong = GameRef.AudioManager.Song.LoadSong(@"Content\Music\BattleTest.mp3", "BattleTest");
+			bSong.SetStartFade(new FadeInfo(0.0f, 1.0f));
+			bSong.SetEndFade(new FadeInfo(1.0f, 0.0f, -0.01f));
+			song.SetNext(bSong);
+			bSong.SetNext(song);
 
-			GameRef.AudioManager.FadeOutSong("Level0_bgm", true);
+			song.BeginStartFade();
+			GameRef.AudioManager.Song.Play(song);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -170,20 +179,7 @@ namespace DiseasedToast.GameScreens
 			_staminaBar.Update(MathHelper.Clamp(_player.Camera.Position.X / _player.Camera.Viewport.Width, 0.0f, 1.0f));
 
 #if DEBUG
-			if (InputHandler.KeyReleased(Keys.H))
-				_showDebugHelp = !_showDebugHelp;
-
-			if (InputHandler.KeyReleased(Keys.B))
-				GameRef.AudioManager.PlaySong("BattleTest");
-			else if (InputHandler.KeyReleased(Keys.M))
-				GameRef.AudioManager.PlaySong("Level0_bgm");
-
-			_posLabel.Text = string.Format(PositionFormat, _player.Sprite.Position.X, _player.Sprite.Position.Y, _player.Sprite.Position.X / Engine.TileWidth, _player.Sprite.Position.Y / Engine.TileHeight);
-			_levelLabel.Text = string.Format(LevelFormat, _world.CurrentLevel, GameRef.AudioManager.NowPlaying);
-			_playerLabel.Text = string.Format(PlayerFormat, _player.Character.Entity.Name,
-			                                  _player.Character.Entity.Health.Current, _player.Character.Entity.Health.Maximum,
-			                                  _player.Character.Entity.Mana.Current, _player.Character.Entity.Mana.Maximum,
-			                                  _player.Character.Entity.Stamina.Current, _player.Character.Entity.Stamina.Maximum);
+			UpdateDebug(gameTime);
 #endif
 
 			_world.Update(gameTime);
@@ -220,15 +216,47 @@ namespace DiseasedToast.GameScreens
 			_staminaBar.Draw(GameRef.SpriteBatch);
 
 #if DEBUG
+			DrawDebug(gameTime);
+#endif
+
+			GameRef.SpriteBatch.End();
+		}
+
+		private void UpdateDebug(GameTime gameTime)
+		{
+			if (InputHandler.KeyReleased(Keys.F3))
+				_debugEnabled = !_debugEnabled;
+
+			if (!_debugEnabled)
+				return;
+
+			if (InputHandler.KeyReleased(Keys.H))
+				_showDebugHelp = !_showDebugHelp;
+
+			if (InputHandler.KeyReleased(Keys.B))
+				GameRef.AudioManager.Song.GetSong("Level0_bgm").BeginEndFade();
+			else if (InputHandler.KeyReleased(Keys.M))
+				GameRef.AudioManager.Song.GetSong("BattleTest").BeginEndFade();
+
+			_posLabel.Text = string.Format(PositionFormat, _player.Sprite.Position.X, _player.Sprite.Position.Y, _player.Sprite.Position.X / Engine.TileWidth, _player.Sprite.Position.Y / Engine.TileHeight);
+			_levelLabel.Text = string.Format(LevelFormat, _world.CurrentLevel, GameRef.AudioManager.Song.NowPlaying.Name);
+			_playerLabel.Text = string.Format(PlayerFormat, _player.Character.Entity.Name,
+											  _player.Character.Entity.Health.Current, _player.Character.Entity.Health.Maximum,
+											  _player.Character.Entity.Mana.Current, _player.Character.Entity.Mana.Maximum,
+											  _player.Character.Entity.Stamina.Current, _player.Character.Entity.Stamina.Maximum);
+		}
+
+		private void DrawDebug(GameTime gameTime)
+		{
+			if (!_debugEnabled)
+				return;
+
 			_posLabel.Draw(GameRef.SpriteBatch);
 			_levelLabel.Draw(GameRef.SpriteBatch);
 			_playerLabel.Draw(GameRef.SpriteBatch);
 			if (_showDebugHelp)
 				_infoLabel.Draw(GameRef.SpriteBatch);
 			_helpLabel.Draw(GameRef.SpriteBatch);
-#endif
-
-			GameRef.SpriteBatch.End();
 		}
 
 		#endregion XNA Methods

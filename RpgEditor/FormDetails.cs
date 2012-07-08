@@ -1,11 +1,10 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
-using RpgLibrary.Skills;
-using RpgLibrary.Entities;
-using RpgLibrary.Items.Data;
-using RpgLibrary.Serializing;
+using F16Gaming.Game.RPGLibrary.Entities;
+using F16Gaming.Game.RPGLibrary.Items.Data;
+using F16Gaming.Game.RPGLibrary.Serializing;
+using F16Gaming.Game.RPGLibrary.Skills;
 
 namespace RpgEditor
 {

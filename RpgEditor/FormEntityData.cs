@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-
-using RpgLibrary.Entities;
+using F16Gaming.Game.RPGLibrary.Entities;
 
 namespace RpgEditor
 {

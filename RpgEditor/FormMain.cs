@@ -2,9 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
-using RpgLibrary;
-using RpgLibrary.Serializing;
+using F16Gaming.Game.RPGLibrary;
+using F16Gaming.Game.RPGLibrary.Serializing;
 
 namespace RpgEditor
 {
@@ -282,7 +281,7 @@ namespace RpgEditor
 
 			try
 			{
-				RpgLibrary.IO.Directory.CopyDirectory(_gamePath, path);
+				F16Gaming.Game.RPGLibrary.IO.Directory.CopyDirectory(_gamePath, path);
 				MessageBox.Show("Successfully exported game data to target directory:\n" + path, "Data Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			catch (IOException ex)

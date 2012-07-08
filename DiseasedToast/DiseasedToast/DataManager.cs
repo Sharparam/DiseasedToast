@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-
-using RpgLibrary.Skills;
-using RpgLibrary.Entities;
-using RpgLibrary.Items.Data;
-using RpgLibrary.Serializing;
+using F16Gaming.Game.RPGLibrary.Entities;
+using F16Gaming.Game.RPGLibrary.Items.Data;
+using F16Gaming.Game.RPGLibrary.Logging;
+using F16Gaming.Game.RPGLibrary.Serializing;
+using F16Gaming.Game.RPGLibrary.Skills;
 
 namespace DiseasedToast
 {
@@ -13,7 +13,7 @@ namespace DiseasedToast
 	{
 		#region Paths
 
-		private static readonly log4net.ILog Log = RpgLibrary.Logging.LogManager.GetLogger(typeof (DataManager));
+		private static readonly log4net.ILog Log = LogManager.GetLogger(typeof (DataManager));
 
 		private const string GameFolder = "Game";
 		private const string ClassFolder = "Classes";

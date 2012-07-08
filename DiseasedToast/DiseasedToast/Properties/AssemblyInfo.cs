@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EyesOfTheDragon")]
-[assembly: AssemblyProduct("EyesOfTheDragon")]
+[assembly: AssemblyTitle("DiseasedToast")]
+[assembly: AssemblyProduct("DiseasedToast")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
+[assembly: AssemblyCompany("F16Gaming")]
+[assembly: AssemblyCopyright("Copyright © 2012 by Adam Hellberg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,5 +30,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.140.0132")]
-[assembly: AssemblyFileVersion("1.0.140.0132")]
+[assembly: AssemblyVersion("1.0.165.1859")]
+[assembly: AssemblyFileVersion("1.0.165.1859")]

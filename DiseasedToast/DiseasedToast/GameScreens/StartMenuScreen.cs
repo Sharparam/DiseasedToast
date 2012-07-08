@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Linq;
-
+using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.GameManagement;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-using XRpgLibrary.Controls;
-using XRpgLibrary.GameManagement;
 
 namespace DiseasedToast.GameScreens
 {

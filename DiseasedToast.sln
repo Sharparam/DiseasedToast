@@ -5,9 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiseasedToast", "DiseasedTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiseasedToastContent", "DiseasedToast\DiseasedToastContent\DiseasedToastContent.contentproj", "{5A74F90A-6975-44D5-B372-FB344AC59EB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRpgLibrary", "XRpgLibrary\XRpgLibrary.csproj", "{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgLibrary", "RpgLibrary\RpgLibrary.csproj", "{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F16Gaming.Game.RPGLibrary", "F16Gaming.Game.RPGLibrary\F16Gaming.Game.RPGLibrary.csproj", "{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgEditor", "RpgEditor\RpgEditor.csproj", "{892ABFCD-C88F-4D54-858A-D5B31B77DA68}"
 EndProject
@@ -51,16 +49,6 @@ Global
 		{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}.Release|Mixed Platforms.Build.0 = Release|x86
 		{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}.Release|x86.ActiveCfg = Release|x86
 		{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}.Release|x86.Build.0 = Release|x86
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}.Release|x86.ActiveCfg = Release|Any CPU
 		{892ABFCD-C88F-4D54-858A-D5B31B77DA68}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{892ABFCD-C88F-4D54-858A-D5B31B77DA68}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{892ABFCD-C88F-4D54-858A-D5B31B77DA68}.Debug|Mixed Platforms.Build.0 = Debug|x86

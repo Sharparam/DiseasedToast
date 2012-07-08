@@ -6,6 +6,7 @@ using System.Threading;
 #if WINDOWS
 using System.Text;
 using System.Runtime.InteropServices;
+using F16Gaming.Game.RPGLibrary.Logging;
 using Microsoft.Win32.SafeHandles;
 #endif
 
@@ -47,7 +48,8 @@ namespace DiseasedToast
 				Console.SetOut(stdOut);
 			}
 #endif
-			_log = RpgLibrary.Logging.LogManager.GetLogger(typeof (Program));
+
+			_log = LogManager.GetLogger(typeof (Program));
 
 			_log.Info("### !!! APPLICATION LOAD !!! ###");
 

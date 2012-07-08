@@ -257,13 +257,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RpgLibrary\RpgLibrary.csproj">
-      <Project>{D5B78C39-B1BE-43C1-84F0-5EBA4A1F922F}</Project>
-      <Name>RpgLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XRpgLibrary\XRpgLibrary.csproj">
+    <ProjectReference Include="..\F16Gaming.Game.RPGLibrary\F16Gaming.Game.RPGLibrary.csproj">
       <Project>{B85B485E-78F8-4068-B9EA-B5DE24B86DEA}</Project>
-      <Name>XRpgLibrary</Name>
+      <Name>F16Gaming.Game.RPGLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

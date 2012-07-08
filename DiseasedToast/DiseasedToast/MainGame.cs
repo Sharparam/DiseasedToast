@@ -2,14 +2,13 @@ using System;
 using System.IO;
 using DiseasedToast.Configuration;
 using DiseasedToast.GameScreens;
+using F16Gaming.Game.RPGLibrary.Audio;
+using F16Gaming.Game.RPGLibrary.GameManagement;
+using F16Gaming.Game.RPGLibrary.Input;
+using F16Gaming.Game.RPGLibrary.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RpgLibrary.Serializing;
-using XRpgLibrary.Audio;
-using XRpgLibrary.Configuration;
-using XRpgLibrary.Input;
-using XRpgLibrary.GameManagement;
 
 namespace DiseasedToast
 {
@@ -67,7 +66,7 @@ namespace DiseasedToast
 
 		public MainGame()
 		{
-			_log = RpgLibrary.Logging.LogManager.GetLogger(this);
+			_log = LogManager.GetLogger(this);
 
 			Activated += GameActivated;
 			Deactivated += GameDeactivated;
@@ -82,7 +81,8 @@ namespace DiseasedToast
 
 			_log.Info(string.Format("Screen size set to: [W]{0} x [H]{1}", ScreenWidth, ScreenHeight));
 
-			//_graphics.SynchronizeWithVerticalRetrace = false;
+			_graphics.SynchronizeWithVerticalRetrace = false;
+			IsFixedTimeStep = false;
 
 			_graphics.ApplyChanges();
 

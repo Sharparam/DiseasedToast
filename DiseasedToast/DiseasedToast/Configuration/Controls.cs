@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using F16Gaming.Game.RPGLibrary.Configuration;
+using F16Gaming.Game.RPGLibrary.Logging;
+using F16Gaming.Game.RPGLibrary.Serializing;
 using Microsoft.Xna.Framework.Input;
-using XRpgLibrary.Configuration;
 
 namespace DiseasedToast.Configuration
 {
@@ -12,6 +14,7 @@ namespace DiseasedToast.Configuration
 		MoveDown	= Keys.S,
 		MoveLeft	= Keys.A,
 		MoveRight	= Keys.D,
+		Sprint		= Keys.LeftShift,
 
 		CameraUp	= Keys.Up,
 		CameraDown	= Keys.Down,
@@ -30,6 +33,7 @@ namespace DiseasedToast.Configuration
 		MoveDown	= Buttons.LeftThumbstickDown,
 		MoveLeft	= Buttons.LeftThumbstickLeft,
 		MoveRight	= Buttons.LeftThumbstickRight,
+		Sprint		= Buttons.X,
 		
 		CameraUp	= Buttons.DPadUp,
 		CameraDown	= Buttons.DPadDown,
@@ -56,12 +60,12 @@ namespace DiseasedToast.Configuration
 
 		internal ControlsManager(string file)
 		{
-			_log = RpgLibrary.Logging.LogManager.GetLogger(this);
+			_log = LogManager.GetLogger(this);
 
 			if (File.Exists(file))
 			{
 				_log.Info("Loading controls from " + file + "...");
-				Controls = RpgLibrary.Serializing.Serializer.JsonDeserialize<Controls>(file);
+				Controls = Serializer.JsonDeserialize<Controls>(file);
 				_log.Debug("Controls loaded!");
 			}
 			else
@@ -69,7 +73,7 @@ namespace DiseasedToast.Configuration
 				Controls = new Controls();
 				SetDefaultControls();
 				_log.Debug("Saving controls to " + SettingsFile + "...");
-				RpgLibrary.Serializing.Serializer.JsonSerialize(Controls, SettingsFile);
+				Serializer.JsonSerialize(Controls, SettingsFile);
 			}
 
 			CheckControls();

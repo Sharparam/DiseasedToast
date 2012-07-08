@@ -8,8 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("XRpgEditor")]
 [assembly: AssemblyProduct("XRpgEditor")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
+[assembly: AssemblyCompany("F16Gaming")]
+[assembly: AssemblyCopyright("Copyright © 2012 by Adam Hellberg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

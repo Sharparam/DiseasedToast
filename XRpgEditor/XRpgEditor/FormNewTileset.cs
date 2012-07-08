@@ -2,7 +2,7 @@
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
-using RpgLibrary.World;
+using F16Gaming.Game.RPGLibrary.World;
 
 namespace XRpgEditor
 {

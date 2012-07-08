@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using DiseasedToast.Components;
+using F16Gaming.Game.RPGLibrary.Characters;
+using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.Entities;
+using F16Gaming.Game.RPGLibrary.GameManagement;
+using F16Gaming.Game.RPGLibrary.Sprites;
+using F16Gaming.Game.RPGLibrary.TileEngine;
+using F16Gaming.Game.RPGLibrary.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using RpgLibrary.Entities;
-using XRpgLibrary.Characters;
-using XRpgLibrary.Controls;
-using XRpgLibrary.GameManagement;
-using XRpgLibrary.Sprites;
-using XRpgLibrary.TileEngine;
-using XRpgLibrary.World;
+using Tile = F16Gaming.Game.RPGLibrary.TileEngine.Tile;
 
 namespace DiseasedToast.GameScreens
 {

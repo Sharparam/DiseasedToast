@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-
-using RpgLibrary.Items;
-using RpgLibrary.Items.Data;
+using F16Gaming.Game.RPGLibrary.Items;
+using F16Gaming.Game.RPGLibrary.Items.Data;
 
 namespace RpgEditor
 {

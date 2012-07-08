@@ -1,10 +1,10 @@
 ﻿using System;
+using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.GameManagement;
+using F16Gaming.Game.RPGLibrary.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
-using XRpgLibrary.Controls;
-using XRpgLibrary.GameManagement;
 
 namespace DiseasedToast.GameScreens
 {
@@ -32,9 +32,9 @@ namespace DiseasedToast.GameScreens
 
 		protected BaseGameState(Game game, GameStateManager manager) : base(game, manager)
 		{
-			Log = RpgLibrary.Logging.LogManager.GetLogger(this);
+			Log = LogManager.GetLogger(this);
 			Log.Debug("Constructing GameState... (" + GetType() + ")");
-			Log = RpgLibrary.Logging.LogManager.GetLogger(this);
+			Log = LogManager.GetLogger(this);
 			GameRef = (MainGame) game;
 			PlayerIndexInControl = PlayerIndex.One;
 		}

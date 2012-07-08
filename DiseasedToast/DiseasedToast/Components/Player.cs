@@ -1,12 +1,13 @@
 ﻿using System;
 using DiseasedToast.Configuration;
+using F16Gaming.Game.RPGLibrary.Characters;
+using F16Gaming.Game.RPGLibrary.Input;
+using F16Gaming.Game.RPGLibrary.Logging;
+using F16Gaming.Game.RPGLibrary.Sprites;
+using F16Gaming.Game.RPGLibrary.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using XRpgLibrary.Characters;
-using XRpgLibrary.Input;
-using XRpgLibrary.Sprites;
-using XRpgLibrary.TileEngine;
 
 namespace DiseasedToast.Components
 {
@@ -15,12 +16,15 @@ namespace DiseasedToast.Components
 		#region Fields
 
 		private const int MouseDetectOffset = 25;
+		private const float SprintSpeed = 100.0f;
 
 		private Camera _camera;
 		private readonly MainGame _gameRef;
 		private readonly Character _char;
 		private TimeSpan _elapsed = TimeSpan.Zero;
 		private readonly TimeSpan _delay = TimeSpan.FromMilliseconds(10);
+
+		private bool _sprinting;
 
 		#endregion
 
@@ -52,7 +56,7 @@ namespace DiseasedToast.Components
 			_camera = new Camera(_gameRef.ScreenRectangle, ControlsManager.Controls);
 			_char = character;
 			
-			RpgLibrary.Logging.LogManager.GetLogger(this).Debug("Player object created.");
+			LogManager.GetLogger(this).Debug("Player object created.");
 		}
 
 		#endregion
@@ -61,7 +65,6 @@ namespace DiseasedToast.Components
 
 		public void Update(GameTime gameTime)
 		{
-			_elapsed += gameTime.ElapsedGameTime;
 			_camera.Update(gameTime);
 			Sprite.Update(gameTime);
 
@@ -80,58 +83,59 @@ namespace DiseasedToast.Components
 					_camera.LockToSprite(Sprite);
 			}
 
-			if (_elapsed >= _delay)
+			var motion = new Vector2();
+
+			int mouseX = InputHandler.MouseState.X + (int)_camera.Position.X;
+			int mouseY = InputHandler.MouseState.Y + (int)_camera.Position.Y;
+
+			if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveUp"]) ||
+				InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveUp"]) ||
+				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseY + MouseDetectOffset < Sprite.Position.Y + Sprite.Height / 2.0f))
 			{
-				var motion = new Vector2();
+				Sprite.CurrentAnimation = AnimationKey.North;
+				motion.Y = -1;
+			}
+			else if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveDown"]) ||
+				InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveDown"]) ||
+				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseY - MouseDetectOffset > Sprite.Position.Y + Sprite.Height / 2.0f))
+			{
+				Sprite.CurrentAnimation = AnimationKey.South;
+				motion.Y = 1;
+			}
 
-				int mouseX = InputHandler.MouseState.X + (int)_camera.Position.X;
-				int mouseY = InputHandler.MouseState.Y + (int)_camera.Position.Y;
+			if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveLeft"]) ||
+				InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveLeft"]) ||
+				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseX + MouseDetectOffset < Sprite.Position.X + Sprite.Width / 2.0f))
+			{
+				Sprite.CurrentAnimation = AnimationKey.West;
+				motion.X = -1;
+			}
+			else if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveRight"]) ||
+				InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveRight"]) ||
+				(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseX - MouseDetectOffset > Sprite.Position.X + Sprite.Width / 2.0f))
+			{
+				Sprite.CurrentAnimation = AnimationKey.East;
+				motion.X = 1;
+			}
 
-				if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveUp"]) ||
-					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveUp"]) ||
-					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseY + MouseDetectOffset < Sprite.Position.Y + Sprite.Height / 2.0f))
-				{
-					Sprite.CurrentAnimation = AnimationKey.North;
-					motion.Y = -1;
-				}
-				else if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveDown"]) ||
-					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveDown"]) ||
-					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseY - MouseDetectOffset > Sprite.Position.Y + Sprite.Height / 2.0f))
-				{
-					Sprite.CurrentAnimation = AnimationKey.South;
-					motion.Y = 1;
-				}
+			if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["Sprint"]) ||
+				InputHandler.ButtonDown(ControlsManager.Controls.GamePad["Sprint"]))
+				_sprinting = true;
+			else
+				_sprinting = false;
 
-				if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveLeft"]) ||
-					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveLeft"]) ||
-					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseX + MouseDetectOffset < Sprite.Position.X + Sprite.Width / 2.0f))
-				{
-					Sprite.CurrentAnimation = AnimationKey.West;
-					motion.X = -1;
-				}
-				else if (InputHandler.KeyDown(ControlsManager.Controls.Keyboard["MoveRight"]) ||
-					InputHandler.ButtonDown(ControlsManager.Controls.GamePad["MoveRight"]) ||
-					(InputHandler.MouseDown(Nuclex.Input.MouseButtons.Left) && mouseX - MouseDetectOffset > Sprite.Position.X + Sprite.Width / 2.0f))
-				{
-					Sprite.CurrentAnimation = AnimationKey.East;
-					motion.X = 1;
-				}
-
-				if (motion != Vector2.Zero)
-				{
-					Sprite.IsAnimating = true;
-					motion.Normalize();
-					Sprite.Position += motion * Sprite.Speed;
-					Sprite.LockToMap();
-					if (_camera.Mode == CameraMode.Follow)
-						_camera.LockToSprite(Sprite);
-				}
-				else
-				{
-					Sprite.IsAnimating = false;
-				}
-
-				_elapsed = TimeSpan.Zero;
+			if (motion != Vector2.Zero)
+			{
+				Sprite.IsAnimating = true;
+				motion.Normalize();
+				Sprite.Position += motion * (Sprite.Speed + (_sprinting ? SprintSpeed : 0)) * (float) gameTime.ElapsedGameTime.TotalSeconds;
+				Sprite.LockToMap();
+				if (_camera.Mode == CameraMode.Follow)
+					_camera.LockToSprite(Sprite);
+			}
+			else
+			{
+				Sprite.IsAnimating = false;
 			}
 
 			if (InputHandler.KeyReleased(ControlsManager.Controls.Keyboard["ToggleCamera"]) ||
