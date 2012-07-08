@@ -42,6 +42,8 @@ Requires [FMOD Ex (FMOD SDK)](http://www.fmod.org/) for AudioManager.
 Credits
 -------
 
+Uses [TiledLib](https://bitbucket.org/nickgravelyn/tiledlib/overview) by Nick Gravelyn.
+
 Thanks to **SixOfEleven** for the [XNA 4.0 RPG tutorials](http://xnagpa.net/xna4rpg.php).
 
 **Lots of thanks** to Kevin van der Laan (AKA Diseased Flame) for making the music for Diseased Toast!
