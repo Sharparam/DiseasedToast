@@ -31,6 +31,14 @@ Additional License Notes
 
 [XNA GPA ToU clarification by SixOfEleven](http://xnagpa.net/forum//viewtopic.php?id=103)
 
+Dependencies
+------------
+
+Requires Nuclex.Input from the [Nuclex framework](http://nuclexframework.codeplex.com/) for InputManager.
+Nuclex.Input requires parts of [SlimDX](http://slimdx.org/).
+
+Requires [FMOD Ex (FMOD SDK)](http://www.fmod.org/) for AudioManager.
+
 Credits
 -------
 
