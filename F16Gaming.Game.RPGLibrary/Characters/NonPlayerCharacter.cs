@@ -57,9 +57,9 @@ namespace F16Gaming.Game.RPGLibrary.Characters
 			base.Update(gameTime);
 		}
 
-		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, float depth = 0.0f)
 		{
-			base.Draw(gameTime, spriteBatch);
+			base.Draw(gameTime, spriteBatch, depth);
 		}
 
 		#endregion

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using F16Gaming.Game.RPGLibrary.Characters;
 using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.Engine;
 using F16Gaming.Game.RPGLibrary.Entities;
 using F16Gaming.Game.RPGLibrary.GameManagement;
 using F16Gaming.Game.RPGLibrary.Input;
@@ -10,12 +11,11 @@ using F16Gaming.Game.RPGLibrary.Items.Data;
 using F16Gaming.Game.RPGLibrary.Serializing;
 using F16Gaming.Game.RPGLibrary.Skills;
 using F16Gaming.Game.RPGLibrary.Sprites;
-using F16Gaming.Game.RPGLibrary.TileEngine;
 using F16Gaming.Game.RPGLibrary.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using DiseasedToast.Components;
-using Tile = F16Gaming.Game.RPGLibrary.TileEngine.Tile;
+using Tile = F16Gaming.Game.RPGLibrary.Engine.Tile;
 
 namespace DiseasedToast.GameScreens
 {
@@ -175,7 +175,7 @@ namespace DiseasedToast.GameScreens
 			Log.Info("Setting skill points...");
 			GameRef.SkillScreen.SkillPoints = SkillPointCount;
 			Log.Info("Changing to SkillScreen...");
-			//StateManager.ChangeState(GameRef.SkillScreen);7
+			//StateManager.ChangeState(GameRef.SkillScreen);
 			Transition(ChangeType.Change, GameRef.SkillScreen);
 			GameRef.SkillScreen.SetTarget(GamePlayScreen.Player.Character);
 		}
@@ -208,31 +208,7 @@ namespace DiseasedToast.GameScreens
 
 		private void CreateWorld()
 		{
-			var tileset = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset1"));
-			var tileset2 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset2"));
-
-			var tilesets = new List<Tileset> { tileset, tileset2 };
-
-			var layer = new MapLayer(100, 100);
-			var splatter = new MapLayer(100, 100);
-
-			for (int y = 0; y < layer.Height; y++)
-				for (int x = 0; x < layer.Width; x++)
-					layer[x, y] = new Tile(0, 0);
-
-			var rand = new Random();
-
-			for (int i = 0; i < 100; i++)
-				splatter.SetRandom(rand.Next(2, 14));
-
-			splatter[1, 0] = new Tile(0, 1);
-			splatter[2, 0] = new Tile(2, 1);
-			splatter[3, 0] = new Tile(0, 1);
-
-			var layers = new List<MapLayer> { layer, splatter };
-
-			var map = new TileMap(tilesets, layers);
-			var level = new Level(map);
+			var map = Game.Content.Load<Map>(@"Maps\test").Convert();
 
 			var chestData = Serializer.Deserialize<ContainerData>(@"Game\Containers\Plain Chest.container");
 
@@ -242,14 +218,12 @@ namespace DiseasedToast.GameScreens
 
 			var itemSprite = new ItemSprite(chest, chestSprite);
 
-			level.Containers.Add(itemSprite);
+			//level.Containers.Add(itemSprite);
 
-			var world = new World(GameRef, GameRef.ScreenRectangle);
-			world.Levels.Add(level);
-			world.CurrentLevel = 0;
+			Console.WriteLine("CHANGING LEVEL TO test!");
 
-			GamePlayScreen.World = world;
-			Log.Debug("World created!");
+			GameRef.World.ChangeLevel("test");
+			//world.CurrentLevel = 0;
 		}
 
 		#endregion

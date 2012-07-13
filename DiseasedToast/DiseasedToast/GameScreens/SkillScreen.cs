@@ -106,7 +106,7 @@ namespace DiseasedToast.GameScreens
 		{
 			Log.Debug("AcceptLabel selected, changing to GamePlayScreen...");
 			_undoStack.Clear();
-			GameRef.AudioManager.Song.GetSong("TitleScreen").BeginEndFade();
+			GameRef.AudioManager.Song.GetSong("MenuTheme").BeginEndFade();
 			Transition(ChangeType.Change, GameRef.GamePlayScreen);
 		}
 

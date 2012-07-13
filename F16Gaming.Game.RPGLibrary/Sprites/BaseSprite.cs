@@ -1,5 +1,4 @@
-﻿using F16Gaming.Game.RPGLibrary.TileEngine;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace F16Gaming.Game.RPGLibrary.Sprites
@@ -73,7 +72,7 @@ namespace F16Gaming.Game.RPGLibrary.Sprites
 		public BaseSprite(Texture2D texture, Rectangle? sourceRectangle, Point? tile) : this(texture, sourceRectangle)
 		{
 			if (tile.HasValue)
-				Position = new Vector2(tile.Value.X * Engine.TileWidth, tile.Value.Y * Engine.TileHeight);
+				Position = new Vector2(tile.Value.X * Engine.Engine.TileWidth, tile.Value.Y * Engine.Engine.TileHeight);
 		}
 
 		#endregion Constructors
@@ -85,9 +84,9 @@ namespace F16Gaming.Game.RPGLibrary.Sprites
 			
 		}
 
-		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, float depth = 0.0f)
 		{
-			spriteBatch.Draw(Texture, Position, _sourceRectangle, Color.White);
+			spriteBatch.Draw(Texture, Position, _sourceRectangle, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, depth);
 		}
 
 		#endregion

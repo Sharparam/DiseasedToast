@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using F16Gaming.Game.RPGLibrary.Engine;
+using F16Gaming.Game.RPGLibrary.Engine.Mapping;
 using F16Gaming.Game.RPGLibrary.Items;
-using F16Gaming.Game.RPGLibrary.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -29,26 +31,11 @@ namespace F16Gaming.Game.RPGLibrary.World
 		#region Level Fields and Properties
 
 		private readonly List<Level> _levels = new List<Level>();
-		private int _currentLevel = -1;
+		private Level _currentLevel;
 
-		public List<Level> Levels
-		{
-			get { return _levels; }
-		}
-
-		public int CurrentLevel
+		public Level CurrentLevel
 		{
 			get { return _currentLevel; }
-			set
-			{
-				if (value < 0 || value >= _levels.Count)
-					throw new IndexOutOfRangeException("Level index out of range!");
-
-				if (_levels[value] == null)
-					throw new NullReferenceException("Tried to set current level to NULL level!");
-
-				_currentLevel = value;
-			}
 		}
 
 		#endregion
@@ -76,7 +63,36 @@ namespace F16Gaming.Game.RPGLibrary.World
 
 		public void DrawLevel(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
 		{
-			_levels[_currentLevel].Draw(gameTime, spriteBatch, camera);
+			_currentLevel.Draw(gameTime, spriteBatch, camera);
+		}
+
+		public Level CreateLevel(string name, Map map)
+		{
+			Level level = _levels.FirstOrDefault(l => l.Name == name);
+			if (level != null)
+				return level;
+			level = new Level(name, map);
+			_levels.Add(level);
+			return level;
+		}
+
+		public void ChangeLevel(string name)
+		{
+			Level level = _levels.FirstOrDefault(l => l.Name == name);
+			if (level != null)
+			{
+				Console.WriteLine("World CHANGED LEVEL TO: " + level.Name);
+				_currentLevel = level;
+			}
+			else
+			{
+				Console.WriteLine("WARNING: ChangeLevel -> NULL LEVEL: " + name);
+			}
+		}
+
+		public Level GetLevel(string name)
+		{
+			return _levels.FirstOrDefault(l => l.Name == name);
 		}
 
 		#endregion

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using F16Gaming.Game.RPGLibrary.Characters;
+using F16Gaming.Game.RPGLibrary.Engine;
 using F16Gaming.Game.RPGLibrary.Items;
-using F16Gaming.Game.RPGLibrary.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using F16Gaming.Game.RPGLibrary.Engine.Mapping;
 
 namespace F16Gaming.Game.RPGLibrary.World
 {
@@ -11,7 +13,8 @@ namespace F16Gaming.Game.RPGLibrary.World
 	{
 		#region Fields
 
-		private readonly TileMap _map;
+		private readonly string _name;
+		private readonly Map _map;
 		private readonly List<Character> _characters;
 		private readonly List<ItemSprite> _containers; 
 
@@ -19,7 +22,12 @@ namespace F16Gaming.Game.RPGLibrary.World
 
 		#region Properties
 
-		public TileMap Map
+		public string Name
+		{
+			get { return _name; }
+		}
+
+		public Map Map
 		{
 			get { return _map; }
 		}
@@ -38,8 +46,9 @@ namespace F16Gaming.Game.RPGLibrary.World
 
 		#region Constructors
 
-		public Level(TileMap map)
+		internal Level(string name, Map map)
 		{
+			_name = name;
 			_map = map;
 			_characters = new List<Character>();
 			_containers = new List<ItemSprite>();

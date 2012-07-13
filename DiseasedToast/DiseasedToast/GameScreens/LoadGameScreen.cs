@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using DiseasedToast.Components;
 using F16Gaming.Game.RPGLibrary.Characters;
 using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.Engine;
 using F16Gaming.Game.RPGLibrary.Entities;
 using F16Gaming.Game.RPGLibrary.GameManagement;
 using F16Gaming.Game.RPGLibrary.Sprites;
-using F16Gaming.Game.RPGLibrary.TileEngine;
 using F16Gaming.Game.RPGLibrary.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Tile = F16Gaming.Game.RPGLibrary.TileEngine.Tile;
 
 namespace DiseasedToast.GameScreens
 {
@@ -149,36 +148,9 @@ namespace DiseasedToast.GameScreens
 		private void CreateWorld()
 		{
 			Log.Info("Creating world...");
-			var tileset = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset1"));
-			var tileset2 = new Tileset(Game.Content.Load<Texture2D>(@"Tilesets\tileset2"));
+			GameRef.World.ChangeLevel("test");
 
-			var tilesets = new List<Tileset> { tileset, tileset2 };
-
-			var layer = new MapLayer(100, 100);
-			var splatter = new MapLayer(100, 100);
-
-			for (int y = 0; y < layer.Height; y++)
-				for (int x = 0; x < layer.Width; x++)
-					layer[x, y] = new Tile();
-
-			var rand = new Random();
-
-			for (int i = 0; i < 100; i++)
-				splatter.SetRandom(rand.Next(2, 14));
-
-			splatter[1, 0] = new Tile(0, 1);
-			splatter[2, 0] = new Tile(2, 1);
-			splatter[3, 0] = new Tile(0, 1);
-
-			var layers = new List<MapLayer> { layer, splatter };
-
-			var map = new TileMap(tilesets, layers);
-			var level = new Level(map);
-			var world = new World(GameRef, GameRef.ScreenRectangle);
-			world.Levels.Add(level);
-			world.CurrentLevel = 0;
-
-			GamePlayScreen.World = world;
+			GamePlayScreen.World = GameRef.World;
 			Log.Debug("World created!");
 		}
 

@@ -74,7 +74,8 @@ namespace DiseasedToast.GameScreens
 
 			//GameRef.AudioManager.AddSong(new XRpgLibrary.Audio.Song("TitleScreen", content.Load<Song>(@"Music\TitleScreen")));
 			//GameRef.AudioManager.PlaySong("TitleScreen");
-			var song = GameRef.AudioManager.Song.LoadSong(@"Content\Music\TitleScreen.mp3", "TitleScreen");
+			var song = GameRef.AudioManager.Song.GetSong("MenuTheme");
+			song.SetStartFade(new FadeInfo(0.0f, 1.0f));
 			song.SetEndFade(new FadeInfo(1.0f, 0.0f, -0.01f, TimeSpan.FromMilliseconds(15)));
 			
 			//GameRef.AudioManager.PlaySong(GameRef.AudioManager.AddSong(new F16Gaming.Game.RPGLibrary.Audio.Song("TitleScreen", content.Load<Song>(@"Music\TitleScreen"))).Name);

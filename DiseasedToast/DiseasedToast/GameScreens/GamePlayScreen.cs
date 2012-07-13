@@ -1,10 +1,14 @@
-﻿using DiseasedToast.Components;
+﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using DiseasedToast.Components;
 using DiseasedToast.Configuration;
 using F16Gaming.Game.RPGLibrary.Audio;
 using F16Gaming.Game.RPGLibrary.Controls;
+using F16Gaming.Game.RPGLibrary.Engine;
+using F16Gaming.Game.RPGLibrary.Engine.Mapping;
 using F16Gaming.Game.RPGLibrary.GameManagement;
 using F16Gaming.Game.RPGLibrary.Input;
-using F16Gaming.Game.RPGLibrary.TileEngine;
 using F16Gaming.Game.RPGLibrary.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -23,15 +27,17 @@ namespace DiseasedToast.GameScreens
 
 		private Engine _engine = new Engine(32, 32);
 		private static Player _player;
-		private static World _world;
+		private static F16Gaming.Game.RPGLibrary.Engine.Mapping.Map _map;
 		private Texture2D _pointer;
 		private Bar _healthBar;
 		private Bar _manaBar;
 		private Bar _staminaBar;
 
+		internal static World World;
+
 #if DEBUG
-		private const string PositionFormat = "Position: (REAL) < [X] {0:0000.00000} [Y] {1:0000.00000} > (ENGINE) < [X] {2:000.00000} [Y] {3:000.00000} >";
-		private const string LevelFormat = "LEVEL: #{0}. Now Playing: {1}";
+		private const string PositionFormat = "REAL: [X] {0:0000.00000} [Y] {1:0000.00000} CALC: [X] {2:000.00000} [Y] {3:000.00000} MAP: [X] {4:000} [Y] {5:000}";
+		private const string LevelFormat = "LEVEL: {0}. Now Playing: {1} [{2:000000} / {3:000000}] at {4:0.00000}";
 		private const string PlayerFormat = "PLAYER[{0}]: HP( {1:000} / {2:000} ), POW( {3:000} / {4:000} ), STA( {5:000} / {6:000} )";
 		private const string StatFormat = "STATS: ";
 		private SpriteFont _debugFont;
@@ -55,10 +61,10 @@ namespace DiseasedToast.GameScreens
 			set { _player = value; }
 		}
 
-		public static World World
+		public static F16Gaming.Game.RPGLibrary.Engine.Mapping.Map Map
 		{
-			get { return _world; }
-			set { _world = value; }
+			get { return _map; }
+			set { _map = value; }
 		}
 
 		#endregion
@@ -67,8 +73,11 @@ namespace DiseasedToast.GameScreens
 
 		public GamePlayScreen(Game game, GameStateManager manager) : base(game, manager)
 		{
+			if (!(game is MainGame))
+				throw new Exception("GamePlayScreen constructor: Param 'game' is of type " + game.GetType() + "!");
+
 			Log.Info("Setting game world...");
-			_world = new World(game, GameRef.ScreenRectangle);
+			World = ((MainGame) game).World;
 		}
 
 		#endregion
@@ -85,6 +94,22 @@ namespace DiseasedToast.GameScreens
 		protected override void LoadContent()
 		{
 			base.LoadContent();
+
+			_map = GameRef.World.CurrentLevel.Map;
+
+			_player.SetMapSize(_map.PixelsWide, _map.PixelsHigh);
+
+			var spawn = _map.FindObject((l, o) => l.Name == "player" && o.Name == "spawn" && o.ObjectType == MapObjectType.Plain);
+			//string pos = _map.GetProperty("spawn");
+			if (spawn != null)
+			{
+				//string[] splitPos = pos.Split(';');
+				float x = spawn.Bounds.X;
+				float y = spawn.Bounds.Y;
+				
+				_player.Sprite.Position = new Vector2(x, y);
+				_player.Camera.LockToSprite(_player.Sprite);
+			}
 
 			_pointer = Game.Content.Load<Texture2D>(@"GUI\pointer");
 
@@ -154,12 +179,12 @@ namespace DiseasedToast.GameScreens
 			_helpLabel.AutoSize();
 #endif
 
-			var song = GameRef.AudioManager.Song.LoadSong(@"Content\Music\Level0_bgm.mp3", "Level0_bgm", 0.1f);
+			var song = GameRef.AudioManager.Song.GetSong("Level0_bgm");
 			song.SetStartFade(new FadeInfo(0.0f, 0.1f));
 			song.SetEndFade(new FadeInfo(0.1f, 0.0f, -0.01f));
 			//GameRef.AudioManager.AddSong(new Song("Level0_bgm", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\Level0_bgm"), 0.1f));
 			//GameRef.AudioManager.AddSong(new Song("BattleTest", Game.Content.Load<Microsoft.Xna.Framework.Media.Song>(@"Music\BattleTest")));
-			var bSong = GameRef.AudioManager.Song.LoadSong(@"Content\Music\BattleTest.mp3", "BattleTest");
+			var bSong = GameRef.AudioManager.Song.GetSong("BattleTest");
 			bSong.SetStartFade(new FadeInfo(0.0f, 1.0f));
 			bSong.SetEndFade(new FadeInfo(1.0f, 0.0f, -0.01f));
 			song.SetNext(bSong);
@@ -172,7 +197,7 @@ namespace DiseasedToast.GameScreens
 		public override void Update(GameTime gameTime)
 		{
 			if (GameRef.HasFocus)
-				_player.Update(gameTime);
+				_player.Update(gameTime, _map);
 
 			_healthBar.Update(MathHelper.Clamp(_player.Camera.Position.X / _player.Camera.Position.Y, 0.0f, 1.0f));
 			_manaBar.Update(MathHelper.Clamp(_player.Camera.Position.Y / _player.Camera.Viewport.Height, 0.0f, 1.0f));
@@ -182,7 +207,7 @@ namespace DiseasedToast.GameScreens
 			UpdateDebug(gameTime);
 #endif
 
-			_world.Update(gameTime);
+			//_world.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -191,7 +216,7 @@ namespace DiseasedToast.GameScreens
 		{
 			// World Drawing (moves with world)
 			GameRef.SpriteBatch.Begin(
-				SpriteSortMode.Deferred,
+				SpriteSortMode.BackToFront,
 				BlendState.AlphaBlend,
 				SamplerState.PointClamp,
 				null,
@@ -201,8 +226,8 @@ namespace DiseasedToast.GameScreens
 
 			base.Draw(gameTime);
 
-			_world.DrawLevel(gameTime, GameRef.SpriteBatch, _player.Camera);
-			_player.Draw(gameTime, GameRef.SpriteBatch);
+			_map.Draw(GameRef.SpriteBatch, _player.Camera, depth => _player.Draw(gameTime, GameRef.SpriteBatch, depth));
+			//_player.Draw(gameTime, GameRef.SpriteBatch);
 
 			GameRef.SpriteBatch.Draw(_pointer, new Vector2(InputHandler.MouseState.X, InputHandler.MouseState.Y) + _player.Camera.Position, Color.White);
 
@@ -238,8 +263,9 @@ namespace DiseasedToast.GameScreens
 			else if (InputHandler.KeyReleased(Keys.M))
 				GameRef.AudioManager.Song.GetSong("BattleTest").BeginEndFade();
 
-			_posLabel.Text = string.Format(PositionFormat, _player.Sprite.Position.X, _player.Sprite.Position.Y, _player.Sprite.Position.X / Engine.TileWidth, _player.Sprite.Position.Y / Engine.TileHeight);
-			_levelLabel.Text = string.Format(LevelFormat, _world.CurrentLevel, GameRef.AudioManager.Song.NowPlaying.Name);
+			Point playerPos = _map.VectorToCell(_player.Sprite.Position);
+			_posLabel.Text = string.Format(PositionFormat, _player.Sprite.Position.X, _player.Sprite.Position.Y, _player.Sprite.Position.X / _map.TileWidth, _player.Sprite.Position.Y / _map.TileHeight, playerPos.X, playerPos.Y);
+			_levelLabel.Text = string.Format(LevelFormat, GameRef.World.CurrentLevel.Name, GameRef.AudioManager.Song.NowPlaying.Name, GameRef.AudioManager.Song.GetPosition(), GameRef.AudioManager.Song.GetLength(), GameRef.AudioManager.Song.GetVolume());
 			_playerLabel.Text = string.Format(PlayerFormat, _player.Character.Entity.Name,
 											  _player.Character.Entity.Health.Current, _player.Character.Entity.Health.Maximum,
 											  _player.Character.Entity.Mana.Current, _player.Character.Entity.Mana.Maximum,

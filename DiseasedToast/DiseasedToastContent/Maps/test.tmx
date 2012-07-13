@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32">
+  <image source="../Tilesets/tileset1.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="65" name="tileset2" tilewidth="32" tileheight="32">
+  <image source="../Tilesets/tileset2.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="129" name="generic" tilewidth="32" tileheight="32">
+  <image source="../Tilesets/generic.png" width="256" height="256"/>
+ </tileset>
+ <layer name="background" width="50" height="50">
+  <properties>
+   <property name="playerDraw" value=""/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztlvlSwjAQhxfv+50qIsX71tdR//K+T/DAJ/WXyTKjsaGhpSUZd2e+yTTQkC8bsiGSkJCQ0FEZEEV4RAaVH62NpM/NvqjL+EV5uMwzaX5mvzl321i+e3Rry9xXaR62ubvuK1/yYe51Vw+f9lVajnz1MNc8j4c5VhEeg+A/x1EOfAo1n2twAe6ZJ+5/5f5z7mtRd48z/l5nnBvQ5Fb1PxbsYUN5fDAh5EOts1r3Jv1e805u2uCEn1v87JNH1vNkKce7vTAEhsEIGAVjYBxMBOQxCabANJgBs2AuwHxEYB5UwQKogUVQB3FAHg3+nWWwAlbBGlgHGwF5bIItsA12wC7YA/vgICCPQ9Jn4jGlh88e6pw/JV1bVR1WdeESXJGu26F4qDvALbgjXbceSN8HVD17NjwaGYlzvOvKC+n7RKc2v4F30neLz5R8qHMtslAvOR9t8EVukeRR43lXua0xZXv0Eln3Tj/3VdwHj6z/5X7mwzaWeIiHeIiHq0fauRuKhys2X1dXXzxs83Dde+JRjofr3aXoe0lej7yIh3gM2kNCQuJvfAOKCoA1
+  </data>
+ </layer>
+ <objectgroup name="player" width="50" height="50">
+  <object name="spawn" x="512" y="1184" width="32" height="32"/>
+ </objectgroup>
+ <layer name="foreground" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztz7kNgFAQQ8FtjQpAHIL+K8HJJoQkH6QZ6eV2FQAAAAAw2pyWdKZr8JY3ev+atrSno/73p/dPj/oPAAAAAN92A1l1Bj0=
+  </data>
+ </layer>
+ <layer name="collision" width="50" height="50" opacity="0.35">
+  <data encoding="base64" compression="zlib">
+   eJzt2esKgCAMhmFvvTvvVyCyuUlOl70PSKBkfjiiQykAcJ6raaU69s6x+uq52vkjeNYkjUnrbtduzTXTzBy9YzRpz7Vra2vvja2oKen6Wt/Tr9W7tT/RvDmsPcqaw3sP8+RYVVvATtL9ivoHAAB/xrMRTrD6HT0KOXIhRy5Zcrz9rpApx4zxLDm0ffhiDq3fU3fZc4zOs4v1D22k7ZSlLt4iB4BoN0/aUSI=
+  </data>
+ </layer>
+</map>

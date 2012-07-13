@@ -50,9 +50,9 @@ namespace F16Gaming.Game.RPGLibrary.Characters
 			Sprite.Update(gameTime);
 		}
 
-		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, float depth = 0.0f)
 		{
-			Sprite.Draw(gameTime, spriteBatch);
+			Sprite.Draw(gameTime, spriteBatch, depth);
 		}
 
 		public virtual bool Equip(GameItem item)

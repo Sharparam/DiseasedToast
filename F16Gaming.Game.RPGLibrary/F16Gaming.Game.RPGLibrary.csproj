@@ -58,8 +58,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FMOD">
-      <HintPath>E:\Program Files (x86)\FMOD SoundSystem\FMOD Programmers API Windows\api\FMOD.dll</HintPath>
+    <Reference Include="FMOD, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\FMOD\FMOD.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,7 +103,9 @@
     <Reference Include="Nuclex.Input">
       <HintPath>E:\Program Files (x86)\Nuclex Framework\xna-4.0-x86\Nuclex.Input.dll</HintPath>
     </Reference>
-    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86" />
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -147,6 +150,13 @@
     <Compile Include="Conversation\Conversation.cs" />
     <Compile Include="Conversation\ConversationManager.cs" />
     <Compile Include="Conversation\ConversationNode.cs" />
+    <Compile Include="Engine\Mapping\Layer.cs" />
+    <Compile Include="Engine\Mapping\MapObject.cs" />
+    <Compile Include="Engine\Mapping\MapObjectLayer.cs" />
+    <Compile Include="Engine\Mapping\MapObjectType.cs" />
+    <Compile Include="Engine\Mapping\Orientation.cs" />
+    <Compile Include="Engine\Mapping\Tile.cs" />
+    <Compile Include="Engine\Mapping\TileLayer.cs" />
     <Compile Include="Entities\Attribute.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityData.cs" />
@@ -199,18 +209,19 @@
     <Compile Include="Talents\Talent.cs" />
     <Compile Include="Talents\TalentData.cs" />
     <Compile Include="Talents\TalentDataManager.cs" />
-    <Compile Include="TileEngine\Camera.cs" />
-    <Compile Include="TileEngine\Engine.cs" />
-    <Compile Include="TileEngine\MapLayer.cs" />
-    <Compile Include="TileEngine\Tile.cs" />
-    <Compile Include="TileEngine\TileMap.cs" />
-    <Compile Include="TileEngine\Tileset.cs" />
+    <Compile Include="Engine\Camera.cs" />
+    <Compile Include="Engine\Engine.cs" />
+    <Compile Include="Engine\MapLayer.cs" />
+    <Compile Include="Engine\Tile.cs" />
+    <Compile Include="Engine\TileMap.cs" />
+    <Compile Include="Engine\Tileset.cs" />
     <Compile Include="Traps\Trap.cs" />
     <Compile Include="Traps\TrapData.cs" />
     <Compile Include="Traps\TrapManager.cs" />
     <Compile Include="Utilities\Number.cs" />
     <Compile Include="World\Level.cs" />
     <Compile Include="World\LevelData.cs" />
+    <Compile Include="Engine\Mapping\Map.cs" />
     <Compile Include="World\MapData.cs" />
     <Compile Include="World\MapLayerData.cs" />
     <Compile Include="World\Tile.cs" />
@@ -239,7 +250,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <ProjectExtensions>

@@ -1,11 +1,15 @@
 List of authors and their works, and the license associated with the work.
 
-NOTE (Tilesets): All files here (and in subfolders) are from SixOfEleven's XNA tutorials, I take no credit for any content contained in this folder or subfolders.
+NOTE (Tilesets): tileset1.png and tileset2.png are from SixOfEleven's XNA tutorials, I take no credit for those files.
 
-**IMPORTANT** Attribution of these files may be incorrect, if you are the creator of this content, please contact me via GitHub or create an issue here on the project page.
+**IMPORTANT** Attribution of certain files may be incorrect, if you are the creator of any such content, please contact me via GitHub or create an issue here on the project page.
 
 -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 Author: SixOfEleven <http://www.xnagpa.net/>
 License: CC-BY 3.0 <http://creativecommons.org/licenses/by/3.0/>
-Files: **All files in this folder and subfolders**
+Files: tileset1.png, tileset2.png
+-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+Author: Adam Hellberg (F16Gaming) <https://github.com/F16gaming>
+License: Public Domain / CC0
+Files: generic.png, generic.xcf
 -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-

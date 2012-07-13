@@ -100,6 +100,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -127,6 +128,7 @@
     <Compile Include="GameScreens\SkillScreen.cs" />
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
@@ -200,9 +202,10 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>COPY $(SolutionDir)\lib\FMOD\fmodex.dll $(TargetDir)\fmodex.dll
-COPY $(SolutionDir)\lib\FMOD\fmodex64.dll $(TargetDir)\fmodex64.dll
-</PreBuildEvent>
+    <PreBuildEvent>@ECHO OFF
+ECHO [PreBuild] Copying FMOD libraries...
+COPY $(SolutionDir)\lib\FMOD\fmodex.dll $(TargetDir)\fmodex.dll
+COPY $(SolutionDir)\lib\FMOD\fmodex64.dll $(TargetDir)\fmodex64.dll</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <SlowCheetahTargets Condition=" '$(SlowCheetahTargets)'=='' ">$(LOCALAPPDATA)\Microsoft\MSBuild\SlowCheetah\v1\SlowCheetah.Transforms.targets</SlowCheetahTargets>

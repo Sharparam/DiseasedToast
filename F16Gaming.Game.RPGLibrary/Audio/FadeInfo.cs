@@ -15,6 +15,8 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 		internal float StartVolume { get { return _startVolume; } }
 		internal float CurrentVolume { get { return _currentVolume; } }
 		internal float EndVolume { get { return _endVolume; } }
+		internal float Modifier { get { return _modifier; } }
+		internal TimeSpan Delay { get { return _delay; } }
 		internal bool InProgress { get { return _inProgress; } }
 
 		public FadeInfo(float start, float end, float modifier = 0.01f, TimeSpan? delay = null)
@@ -59,7 +61,7 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 			if (_current < _delay)
 				return;
 
-			_current = TimeSpan.Zero;
+			_current -= _delay;
 
 			_currentVolume += _modifier;
 

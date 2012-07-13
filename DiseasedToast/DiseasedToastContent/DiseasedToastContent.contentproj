@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Textures\" />
+    <Folder Include="Tilesets\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fonts\ControlFont.spritefont">
@@ -108,20 +109,6 @@
     </Compile>
     <Compile Include="GUI\StopBar.png">
       <Name>StopBar</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\tileset1.png">
-      <Name>tileset1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tilesets\tileset2.png">
-      <Name>tileset2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -197,11 +184,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\TitleScreen.mp3">
+    <None Include="Music\Level0_bgm.info">
+      <Name>Level0_bgm</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Music\TitleScreen.mp3">
       <Name>TitleScreen</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Maps\test.tmx">
+      <Name>test</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>MapProcessor</Processor>
+    </Compile>
+    <Compile Include="Maps\newtest.tmx">
+      <Name>newtest</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>MapProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -251,20 +252,38 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\Level0_bgm.mp3">
+    <None Include="Music\Level0_bgm.mp3">
       <Name>Level0_bgm</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\BattleTest.mp3">
+    <None Include="Music\BattleTest.mp3">
       <Name>BattleTest</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\F16Gaming.Game.ContentPipeline\F16Gaming.Game.Content.Pipeline.csproj">
+      <Project>{EF128AE6-E220-4534-9B29-2CA077F3BB88}</Project>
+      <Name>F16Gaming.Game.Content.Pipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TiledLib\TiledLib.csproj">
+      <Project>{EC3F6988-459C-4783-89E9-F34C0CC731C7}</Project>
+      <Name>TiledLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Music\MenuTheme.mp3">
+      <Name>MenuTheme</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

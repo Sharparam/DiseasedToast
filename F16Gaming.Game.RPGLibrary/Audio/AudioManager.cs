@@ -54,6 +54,7 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 		{
 			_log.Info("Unloading AudioManager...");
 			_soundManager.Dispose();
+			_songManager.Dispose();
 
 			if (_system != null)
 			{

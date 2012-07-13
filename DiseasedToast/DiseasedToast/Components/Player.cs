@@ -1,10 +1,10 @@
 ﻿using System;
 using DiseasedToast.Configuration;
 using F16Gaming.Game.RPGLibrary.Characters;
+using F16Gaming.Game.RPGLibrary.Engine;
 using F16Gaming.Game.RPGLibrary.Input;
 using F16Gaming.Game.RPGLibrary.Logging;
 using F16Gaming.Game.RPGLibrary.Sprites;
-using F16Gaming.Game.RPGLibrary.TileEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,12 +17,15 @@ namespace DiseasedToast.Components
 
 		private const int MouseDetectOffset = 25;
 		private const float SprintSpeed = 100.0f;
+		private const float CollisionOffsetX = 2.0f;
+		private const float CollisionOffsetY = 1.0f;
 
 		private Camera _camera;
 		private readonly MainGame _gameRef;
 		private readonly Character _char;
 		private TimeSpan _elapsed = TimeSpan.Zero;
 		private readonly TimeSpan _delay = TimeSpan.FromMilliseconds(10);
+		private Point _mapSize;
 
 		private bool _sprinting;
 
@@ -55,6 +58,8 @@ namespace DiseasedToast.Components
 			_gameRef = game;
 			_camera = new Camera(_gameRef.ScreenRectangle, ControlsManager.Controls);
 			_char = character;
+			_mapSize = new Point(0, 0);
+			_camera.SetMapSize(_mapSize.X, _mapSize.Y);
 			
 			LogManager.GetLogger(this).Debug("Player object created.");
 		}
@@ -63,7 +68,7 @@ namespace DiseasedToast.Components
 
 		#region Methods
 
-		public void Update(GameTime gameTime)
+		public void Update(GameTime gameTime, F16Gaming.Game.RPGLibrary.Engine.Mapping.Map map)
 		{
 			_camera.Update(gameTime);
 			Sprite.Update(gameTime);
@@ -128,8 +133,75 @@ namespace DiseasedToast.Components
 			{
 				Sprite.IsAnimating = true;
 				motion.Normalize();
-				Sprite.Position += motion * (Sprite.Speed + (_sprinting ? SprintSpeed : 0)) * (float) gameTime.ElapsedGameTime.TotalSeconds;
-				Sprite.LockToMap();
+				Vector2 newPos = Sprite.Position + (motion * (Sprite.Speed + (_sprinting ? SprintSpeed : 0)) * (float) gameTime.ElapsedGameTime.TotalSeconds);
+				if (map.HasLayer("collision"))
+				{
+					var layer = map.GetLayer("collision") as F16Gaming.Game.RPGLibrary.Engine.Mapping.TileLayer;
+					if (layer != null)
+					{
+						bool collideX = false;
+						bool collideY = false;
+
+						if (motion.X < 0)
+						{
+							// Check top-left corner
+							Point tilePoint = map.VectorToCell(new Vector2(newPos.X + CollisionOffsetX, Sprite.Position.Y + CollisionOffsetY));
+							collideX = layer[tilePoint.X, tilePoint.Y] != null;
+
+							if (!collideX) // Check bottom-left corner
+							{
+								tilePoint = map.VectorToCell(new Vector2(newPos.X + CollisionOffsetX, Sprite.Position.Y + Sprite.Height - CollisionOffsetY));
+								collideX = layer[tilePoint.X, tilePoint.Y] != null;
+							}
+						}
+						else if (motion.X > 0)
+						{
+							// Check top-right corner
+							Point tilePoint = map.VectorToCell(new Vector2(newPos.X + Sprite.Width - CollisionOffsetX, Sprite.Position.Y + CollisionOffsetY));
+							collideX = layer[tilePoint.X, tilePoint.Y] != null;
+
+							if (!collideX) // Check bottom-right corner
+							{
+								tilePoint = map.VectorToCell(new Vector2(newPos.X + Sprite.Width - CollisionOffsetX, Sprite.Position.Y + Sprite.Height - CollisionOffsetY));
+								collideX = layer[tilePoint.X, tilePoint.Y] != null;
+							}
+						}
+
+						if (motion.Y < 0)
+						{
+							// Check top-left corner
+							Point tilePoint = map.VectorToCell(new Vector2(Sprite.Position.X + CollisionOffsetX, newPos.Y + CollisionOffsetY));
+							collideY = layer[tilePoint.X, tilePoint.Y] != null;
+
+							if (!collideY) // Check top-right corner
+							{
+								tilePoint = map.VectorToCell(new Vector2(Sprite.Position.X + Sprite.Width - CollisionOffsetX, newPos.Y + CollisionOffsetY));
+								collideY = layer[tilePoint.X, tilePoint.Y] != null;
+							}
+						}
+						else if (motion.Y > 0)
+						{
+							// Check bottom-left corner
+							Point tilePoint = map.VectorToCell(new Vector2(Sprite.Position.X + CollisionOffsetX, newPos.Y + Sprite.Height - CollisionOffsetY));
+							collideY = layer[tilePoint.X, tilePoint.Y] != null;
+
+							if (!collideY) // Check bottom-right corner
+							{
+								tilePoint = map.VectorToCell(new Vector2(Sprite.Position.X + Sprite.Width - CollisionOffsetX, newPos.Y + Sprite.Height - CollisionOffsetY));
+								collideY = layer[tilePoint.X, tilePoint.Y] != null;
+							}
+						}
+
+						if (collideX)
+							newPos.X = Sprite.Position.X;
+
+						if (collideY)
+							newPos.Y = Sprite.Position.Y;
+					}
+				}
+
+				Sprite.Position = new Vector2(newPos.X, newPos.Y);
+				Sprite.LockToMap(_mapSize.X, _mapSize.Y);
 				if (_camera.Mode == CameraMode.Follow)
 					_camera.LockToSprite(Sprite);
 			}
@@ -158,9 +230,15 @@ namespace DiseasedToast.Components
 			}
 		}
 
-		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		public void Draw(GameTime gameTime, SpriteBatch spriteBatch, float depth = 0.0f)
 		{
-			_char.Draw(gameTime, spriteBatch);
+			_char.Draw(gameTime, spriteBatch, depth);
+		}
+
+		public void SetMapSize(int width, int height)
+		{
+			_mapSize = new Point(width, height);
+			Camera.SetMapSize(width, height);
 		}
 
 		#endregion
