@@ -21,8 +21,11 @@ namespace F16Gaming.Game.RPGLibrary.Controls
 
 		}
 
-		public override void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch, float opacity = 1.0f)
 		{
+			if (!Color.A.Equals(opacity))
+				Color = new Color(Color.R, Color.G, Color.B, opacity);
+
 			spriteBatch.DrawString(Font, Text, Position, Color);
 		}
 

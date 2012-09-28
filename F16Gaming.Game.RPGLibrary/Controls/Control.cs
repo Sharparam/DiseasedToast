@@ -79,7 +79,7 @@ namespace F16Gaming.Game.RPGLibrary.Controls
 		#region Abstract Methods
 
 		public abstract void Update(GameTime gameTime);
-		public abstract void Draw(SpriteBatch spriteBatch);
+		public abstract void Draw(SpriteBatch spriteBatch, float opacity = 1.0f);
 		public abstract void HandleInput(PlayerIndex playerIndex = PlayerIndex.One);
 
 		#endregion

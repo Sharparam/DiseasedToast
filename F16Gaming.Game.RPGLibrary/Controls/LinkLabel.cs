@@ -35,7 +35,7 @@ namespace F16Gaming.Game.RPGLibrary.Controls
 			
 		}
 
-		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+		public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, float opacity = 1.0f)
 		{
 			spriteBatch.DrawString(Font, Text, Position, HasFocus ? SelectedColor : Color);
 		}
