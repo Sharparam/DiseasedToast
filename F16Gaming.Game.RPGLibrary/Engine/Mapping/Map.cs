@@ -26,6 +26,8 @@ namespace F16Gaming.Game.RPGLibrary.Engine.Mapping
 		private readonly List<Layer> _layers;
 		private readonly Dictionary<string, string> _properties;
 
+		public TextManager TextManager { get; private set; }
+
 		public string Filename { get; private set; }
 		public string Directory { get; private set; }
 
@@ -77,6 +79,8 @@ namespace F16Gaming.Game.RPGLibrary.Engine.Mapping
 				else
 					throw new Exception("Unknown layer type: " + layer.GetType());
 			}
+
+			TextManager = new TextManager(this);
 
 			Debug.Assert(HasLayer("player"), "No player layer exists on map!\n\n" + Filename);
 		}

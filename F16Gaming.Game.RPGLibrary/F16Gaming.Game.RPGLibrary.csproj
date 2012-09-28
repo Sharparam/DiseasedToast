@@ -157,6 +157,8 @@
     <Compile Include="Engine\Mapping\Orientation.cs" />
     <Compile Include="Engine\Mapping\Tile.cs" />
     <Compile Include="Engine\Mapping\TileLayer.cs" />
+    <Compile Include="Engine\Text.cs" />
+    <Compile Include="Engine\TextManager.cs" />
     <Compile Include="Entities\Attribute.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityData.cs" />
