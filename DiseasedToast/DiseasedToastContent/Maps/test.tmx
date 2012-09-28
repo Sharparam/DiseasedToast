@@ -14,9 +14,167 @@
    <property name="playerDraw" value=""/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztlvlSwjAQhxfv+50qIsX71tdR//K+T/DAJ/WXyTKjsaGhpSUZd2e+yTTQkC8bsiGSkJCQ0FEZEEV4RAaVH62NpM/NvqjL+EV5uMwzaX5mvzl321i+e3Rry9xXaR62ubvuK1/yYe51Vw+f9lVajnz1MNc8j4c5VhEeg+A/x1EOfAo1n2twAe6ZJ+5/5f5z7mtRd48z/l5nnBvQ5Fb1PxbsYUN5fDAh5EOts1r3Jv1e805u2uCEn1v87JNH1vNkKce7vTAEhsEIGAVjYBxMBOQxCabANJgBs2AuwHxEYB5UwQKogUVQB3FAHg3+nWWwAlbBGlgHGwF5bIItsA12wC7YA/vgICCPQ9Jn4jGlh88e6pw/JV1bVR1WdeESXJGu26F4qDvALbgjXbceSN8HVD17NjwaGYlzvOvKC+n7RKc2v4F30neLz5R8qHMtslAvOR9t8EVukeRR43lXua0xZXv0Eln3Tj/3VdwHj6z/5X7mwzaWeIiHeIiHq0fauRuKhys2X1dXXzxs83Dde+JRjofr3aXoe0lej7yIh3gM2kNCQuJvfAOKCoA1
+   eJztlvlSwjAQh4P3/U4VEfC+9XXQv1S8FVEUwSf1l8lmBmNDQ0shGXdnvgkEmu7XpMkKwcHBwaGiMCby8IgMCj2tjbjfzb6oz/h5ebjkGZef2W/mbhvLd49+7SjXVZKHLXfXdeXLfJhr3dXDp3WVNEe+epjPPIuHOVYeHuPgP8d5BnwKmc89uAHPxCv1v1N/nfo+RH+Pa/qfHucBtKiV/Y2cPWxIjy8ihPmQz1k+95b4/cz13HTBJX3/oO8+eaTdTzYyXDsIE2ASTIFpMANmwVxAHvNgASyCJbAMVgKcjwisgiJYAyWwDsqgEpBHle6zCbbANtgBu2AvII99cAAOwRE4BifgFJwF5FETak+8EMnhs4fc56+EOlvlOSzPhVtwJ9S5HYqHrAEewZNQ59aLUPWAPM+ahkc1JZUM17ryJlQ9oc/mT9AWqrboJMyH3NciC2VjPnQN0On53Ka2QX01R+Lmowu+hVvEeZQo7yK1JSLOQ96rSbnX6L66HtR9NrRv3eIxSKRdO8NcV5UheKR9l4f5ntvGYg/2YA/2cPVI2ndD8XDF5uvq6ouHLQ/Xtcceo/FwrV3yrkuyemSFPdhj3B4cHBx/4wc+F5Td
   </data>
  </layer>
+ <layer name="clutter" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt0kEKwCAMBEBv/v/HvZaCNVKKK8xACCiKi2kNAAAAAAAgS3/0U8mRRY4sKTl6oWbn732X6jtn+yk5Rv9wYo7RemXu0nOs3rPLW47V2illLr6SA/jbBZc4Agc=
+  </data>
+ </layer>
+ <objectgroup name="text" width="50" height="50">
+  <object name="test_text" type="zone" x="544" y="896" width="608" height="64">
+   <properties>
+    <property name="subtitle" value="A small subtitle"/>
+    <property name="title" value="Test Zone Name"/>
+   </properties>
+  </object>
+  <object name="house_text" type="zone" x="192" y="864" width="256" height="96">
+   <properties>
+    <property name="title" value="The House"/>
+   </properties>
+  </object>
+  <object name="a" type="zone" x="1312" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="A"/>
+   </properties>
+  </object>
+  <object name="b" type="zone" x="1344" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="B"/>
+   </properties>
+  </object>
+  <object name="c" type="zone" x="1376" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="C"/>
+   </properties>
+  </object>
+  <object name="d" type="zone" x="1408" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="D"/>
+   </properties>
+  </object>
+  <object name="f" type="zone" x="1472" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="F"/>
+   </properties>
+  </object>
+  <object name="e" type="zone" x="1440" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="E"/>
+   </properties>
+  </object>
+  <object name="g" type="zone" x="1504" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="G"/>
+   </properties>
+  </object>
+  <object name="h" type="zone" x="1536" y="800" width="32" height="32">
+   <properties>
+    <property name="title" value="H"/>
+   </properties>
+  </object>
+  <object name="i" type="zone" x="1312" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="I"/>
+   </properties>
+  </object>
+  <object name="j" type="zone" x="1344" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="J"/>
+   </properties>
+  </object>
+  <object name="k" type="zone" x="1376" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="K"/>
+   </properties>
+  </object>
+  <object name="l" type="zone" x="1408" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="L"/>
+   </properties>
+  </object>
+  <object name="m" type="zone" x="1440" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="M"/>
+   </properties>
+  </object>
+  <object name="n" type="zone" x="1472" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="N"/>
+   </properties>
+  </object>
+  <object name="p" type="zone" x="1536" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="P"/>
+   </properties>
+  </object>
+  <object name="o" type="zone" x="1504" y="832" width="32" height="32">
+   <properties>
+    <property name="title" value="O"/>
+   </properties>
+  </object>
+  <object name="x" type="zone" x="1536" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="X"/>
+   </properties>
+  </object>
+  <object name="w" type="zone" x="1504" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="W"/>
+   </properties>
+  </object>
+  <object name="v" type="zone" x="1472" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="V"/>
+   </properties>
+  </object>
+  <object name="u" type="zone" x="1440" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="U"/>
+   </properties>
+  </object>
+  <object name="t" type="zone" x="1408" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="T"/>
+   </properties>
+  </object>
+  <object name="s" type="zone" x="1376" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="S"/>
+   </properties>
+  </object>
+  <object name="r" type="zone" x="1344" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="R"/>
+   </properties>
+  </object>
+  <object name="q" type="zone" x="1312" y="864" width="32" height="32">
+   <properties>
+    <property name="title" value="Q"/>
+   </properties>
+  </object>
+  <object name="y" type="zone" x="1312" y="896" width="32" height="32">
+   <properties>
+    <property name="title" value="Y"/>
+   </properties>
+  </object>
+  <object name="z" type="zone" x="1344" y="896" width="32" height="32">
+   <properties>
+    <property name="title" value="Z"/>
+   </properties>
+  </object>
+  <object name="path_enter_text" type="zone" x="1120" y="992" width="32" height="96">
+   <properties>
+    <property name="title" value="The Winding Path"/>
+   </properties>
+  </object>
+  <object name="path_exit_text" type="zone" x="608" y="1440" width="32" height="32">
+   <properties>
+    <property name="title" value="The Forest..."/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="player" width="50" height="50">
   <object name="spawn" x="512" y="1184" width="32" height="32"/>
  </objectgroup>
@@ -25,7 +183,7 @@
    eJztz7kNgFAQQ8FtjQpAHIL+K8HJJoQkH6QZ6eV2FQAAAAAw2pyWdKZr8JY3ev+atrSno/73p/dPj/oPAAAAAN92A1l1Bj0=
   </data>
  </layer>
- <layer name="collision" width="50" height="50" opacity="0.35">
+ <layer name="collision" width="50" height="50" opacity="0.34">
   <data encoding="base64" compression="zlib">
    eJzt2esKgCAMhmFvvTvvVyCyuUlOl70PSKBkfjiiQykAcJ6raaU69s6x+uq52vkjeNYkjUnrbtduzTXTzBy9YzRpz7Vra2vvja2oKen6Wt/Tr9W7tT/RvDmsPcqaw3sP8+RYVVvATtL9ivoHAAB/xrMRTrD6HT0KOXIhRy5Zcrz9rpApx4zxLDm0ffhiDq3fU3fZc4zOs4v1D22k7ZSlLt4iB4BoN0/aUSI=
   </data>

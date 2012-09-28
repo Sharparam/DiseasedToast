@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using DiseasedToast.Components;
-using DiseasedToast.Configuration;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 using F16Gaming.Game.RPGLibrary.Audio;
 using F16Gaming.Game.RPGLibrary.Controls;
 using F16Gaming.Game.RPGLibrary.Engine;
@@ -10,10 +14,9 @@ using F16Gaming.Game.RPGLibrary.Engine.Mapping;
 using F16Gaming.Game.RPGLibrary.GameManagement;
 using F16Gaming.Game.RPGLibrary.Input;
 using F16Gaming.Game.RPGLibrary.World;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+
+using DiseasedToast.Components;
+using DiseasedToast.Configuration;
 
 namespace DiseasedToast.GameScreens
 {
@@ -32,6 +35,9 @@ namespace DiseasedToast.GameScreens
 		private Bar _healthBar;
 		private Bar _manaBar;
 		private Bar _staminaBar;
+		private Label _zoneLabel;
+
+		private Text _activeText;
 
 		internal static World World;
 
@@ -118,6 +124,19 @@ namespace DiseasedToast.GameScreens
 			_healthBar = new Bar(Game.Content.Load<Texture2D>(@"GUI\HealthBar"), emptyBar, new Vector2(BarLeftOffset, barYPos));
 			_manaBar = new Bar(Game.Content.Load<Texture2D>(@"GUI\ManaBar"), emptyBar, new Vector2(_healthBar.Position.X + emptyBar.Width + BarHorizontalOffset, barYPos));
 			_staminaBar = new Bar(Game.Content.Load<Texture2D>(@"GUI\StaminaBar"), emptyBar, new Vector2(_manaBar.Position.X + emptyBar.Width + BarHorizontalOffset, barYPos));
+
+			_zoneLabel = new Label
+			{
+				Enabled = true,
+				Visible = true,
+				Font = Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"),
+				Name = "ZoneLabel",
+				Position = new Vector2(50, 100),
+				Text = "%ZONE_NAME%",
+				TabStop = false
+			};
+			_zoneLabel.AutoSize();
+
 #if DEBUG
 			_debugFont = Game.Content.Load<SpriteFont>(@"Fonts\DebugFont");
 
@@ -207,6 +226,8 @@ namespace DiseasedToast.GameScreens
 			UpdateDebug(gameTime);
 #endif
 
+			UpdateTexts(gameTime);
+
 			//_world.Update(gameTime);
 
 			base.Update(gameTime);
@@ -217,7 +238,7 @@ namespace DiseasedToast.GameScreens
 			// World Drawing (moves with world)
 			GameRef.SpriteBatch.Begin(
 				SpriteSortMode.BackToFront,
-				BlendState.AlphaBlend,
+				BlendState.NonPremultiplied,
 				SamplerState.PointClamp,
 				null,
 				null,
@@ -234,17 +255,50 @@ namespace DiseasedToast.GameScreens
 			GameRef.SpriteBatch.End();
 
 			// UI and other screen objects (static position on screen)
-			GameRef.SpriteBatch.Begin();
+			GameRef.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 
 			_healthBar.Draw(GameRef.SpriteBatch);
 			_manaBar.Draw(GameRef.SpriteBatch);
 			_staminaBar.Draw(GameRef.SpriteBatch);
+
+			if (_activeText != null && _activeText.Active)
+				_zoneLabel.Draw(GameRef.SpriteBatch, _activeText.Opacity);
 
 #if DEBUG
 			DrawDebug(gameTime);
 #endif
 
 			GameRef.SpriteBatch.End();
+		}
+
+		private void UpdateTexts(GameTime gameTime)
+		{
+			if (_activeText != null && _activeText.Active)
+			{
+				_activeText.Update(gameTime);
+
+				if (_activeText.Intersects(_player.Sprite.Rectangle))
+					return;
+
+				_activeText.Mod = -Text.FadeMod;
+				if (_activeText.Opacity <= 0.0f)
+				{
+					Log.DebugFormat("Hiding text {0} of type {1}", _activeText.Name, _activeText.Type);
+					_activeText.Active = false;
+				}
+			}
+
+			var text = _map.TextManager.GetIntersecting(_player.Sprite.Rectangle);
+			if (text == null)
+				return; // Player is not intersecting with any text
+			_activeText = text;
+			_activeText.Opacity = 0.0f;
+			_activeText.Mod = Text.FadeMod;
+			_activeText.Active = true;
+			_zoneLabel.Text = _activeText.Title;
+			_zoneLabel.AutoSize();
+			_zoneLabel.CenterHorizontal(GameRef.ScreenRectangle.Width, _zoneLabel.Position.Y);
+			Log.DebugFormat("Entered text {0} ({1}): {2} - {3}", _activeText.Name, _activeText.Type, _activeText.Title, _activeText.SubTitle ?? "<No Subtitle>");
 		}
 
 		private void UpdateDebug(GameTime gameTime)
