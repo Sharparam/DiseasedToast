@@ -133,7 +133,7 @@ namespace DiseasedToast.Components
 			{
 				Sprite.IsAnimating = true;
 				motion.Normalize();
-				Vector2 newPos = Sprite.Position + (motion * (Sprite.Speed + (_sprinting ? SprintSpeed : 0)) * (float) gameTime.ElapsedGameTime.TotalSeconds);
+				Vector2 newPos = Sprite.Position + (motion * (Sprite.Speed + (_sprinting ? SprintSpeed : 0.0f)) * (float) gameTime.ElapsedGameTime.TotalSeconds);
 				if (map.HasLayer("collision"))
 				{
 					var layer = map.GetLayer("collision") as F16Gaming.Game.RPGLibrary.Engine.Mapping.TileLayer;
