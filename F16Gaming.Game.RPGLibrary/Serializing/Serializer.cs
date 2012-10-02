@@ -12,7 +12,7 @@ namespace F16Gaming.Game.RPGLibrary.Serializing
 
 		public static void Serialize<T>(T data, string file)
 		{
-			Log.Info("Serializing " + data.GetType() + " to " + file);
+			Log.Debug("Serializing " + data.GetType() + " to " + file);
 			using (var writer = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
 				using (var bsonWriter = new BsonWriter(writer))
@@ -26,7 +26,7 @@ namespace F16Gaming.Game.RPGLibrary.Serializing
 
 		public static T Deserialize<T>(string file)
 		{
-			Log.Info("Deserializing from " + file);
+			Log.Debug("Deserializing from " + file);
 
 			T data;
 
@@ -45,7 +45,7 @@ namespace F16Gaming.Game.RPGLibrary.Serializing
 
 		public static string JsonSerialize<T>(T data)
 		{
-			Log.Info("Serializing " + data.GetType() + " to string.");
+			Log.Debug("Serializing " + data.GetType() + " to string.");
 			var writer = new StringWriter();
 			JsonSerializer.Value.Serialize(writer, data);
 			return writer.ToString();
@@ -53,7 +53,7 @@ namespace F16Gaming.Game.RPGLibrary.Serializing
 
 		public static void JsonSerialize<T>(T data, string file)
 		{
-			Log.Info("Serializing " + data.GetType() + " to " + file + " (READABLE)");
+			Log.Debug("Serializing " + data.GetType() + " to " + file + " (READABLE)");
 			using (var writer = new StreamWriter(file, false))
 			{
 				using (var jsonWriter = new JsonTextWriter(writer){Formatting = Formatting.Indented})
@@ -67,7 +67,7 @@ namespace F16Gaming.Game.RPGLibrary.Serializing
 
 		public static T JsonDeserialize<T>(string file)
 		{
-			Log.Info("Deserializing from " + file);
+			Log.Debug("Deserializing from " + file);
 			T data;
 			using (var reader = new StreamReader(file))
 			{
