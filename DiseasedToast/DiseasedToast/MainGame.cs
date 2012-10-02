@@ -24,10 +24,16 @@ namespace DiseasedToast
 
 		private const string MapsFolder = @"Content\Maps";
 		private const string MusicFolder = @"Content\Music";
+		private const float _updateInterval = 0.1f;
 
 		private F16Gaming.Game.RPGLibrary.Engine.Mapping.Map _map;
 
 		private readonly log4net.ILog _log;
+
+		private float _timeSinceLastUpdate = 0.0f;
+		private float _frameCount = 0.0f;
+
+		internal const string WindowTitleFormat = "Diseased Toast - FPS: {0:0.00}";
 
 		internal readonly AudioManager AudioManager;
 
@@ -36,6 +42,7 @@ namespace DiseasedToast
 		#region XNA Fields and Properties
 
 		private readonly GraphicsDeviceManager _graphics;
+
 		public SpriteBatch SpriteBatch { get; private set; }
 
 		#endregion
@@ -67,6 +74,7 @@ namespace DiseasedToast
 		#region Properties
 
 		public bool HasFocus { get; private set; }
+		public float FPS { get; private set; }
 
 		#endregion
 
@@ -84,6 +92,9 @@ namespace DiseasedToast
 
 			Activated += GameActivated;
 			Deactivated += GameDeactivated;
+
+			_log.Debug("Setting initial FPS value");
+			FPS = 0.0f;
 
 			_log.Info("Setting graphics settings...");
 
@@ -356,12 +367,26 @@ namespace DiseasedToast
 		protected override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
+
+			this.Window.Title = string.Format(WindowTitleFormat, FPS);
 		}
 
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Black);
+
 			base.Draw(gameTime);
+
+			float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			_frameCount++;
+			_timeSinceLastUpdate += elapsed;
+
+			if (_timeSinceLastUpdate >= _updateInterval)
+			{
+				FPS = _frameCount / _timeSinceLastUpdate;
+				_frameCount = 0;
+				_timeSinceLastUpdate -= _updateInterval;
+			}
 		}
 
 		#endregion
