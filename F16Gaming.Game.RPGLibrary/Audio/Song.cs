@@ -5,6 +5,7 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 {
 	public class Song
 	{
+		private readonly log4net.ILog _log;
 		private readonly string _file;
 		private readonly string _name;
 
@@ -31,11 +32,13 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 
 		internal Song(string file, string name, float volume = 1.0f, bool loop = true, uint loopPoint = 0)
 		{
+			_log = Logging.LogManager.GetLogger(this);
 			_file = file;
 			_name = name;
 			_volume = volume;
 			_loop = loop;
 			_loopPoint = loopPoint;
+			_log.DebugFormat("New song {0} created: {1}", Name, FileName);
 		}
 
 		public void SetVolume(float volume)
@@ -51,6 +54,7 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 		public void SetNext(Song song)
 		{
 			_next = song;
+			_log.DebugFormat("{0}::SetNext(): Next song set to {1}", Name, _next.Name);
 		}
 
 		public void SetStartFade(FadeInfo info)
@@ -71,6 +75,8 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 				return;
 
 			_startFade.Start();
+
+			_log.DebugFormat("{0}::BeginStartFade() called!", Name);
 		}
 
 		public void BeginEndFade(bool restart = false)
@@ -83,6 +89,8 @@ namespace F16Gaming.Game.RPGLibrary.Audio
 			_endFadeRestart = restart;
 
 			_endFade.Start();
+
+			_log.DebugFormat("{0}::BeginEndFade() called!", Name);
 		}
 	}
 }
