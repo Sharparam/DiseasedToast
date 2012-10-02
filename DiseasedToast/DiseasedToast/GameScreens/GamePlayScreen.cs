@@ -43,7 +43,7 @@ namespace DiseasedToast.GameScreens
 
 #if DEBUG
 		private const string PositionFormat = "REAL: [X] {0:0000.00000} [Y] {1:0000.00000} CALC: [X] {2:000.00000} [Y] {3:000.00000} MAP: [X] {4:000} [Y] {5:000}";
-		private const string LevelFormat = "LEVEL: {0}. Now Playing: {1} [{2:000000} / {3:000000}] at {4:0.00000}";
+		private const string LevelFormat = "FPS: {5:000.000} LEVEL: {0}. Now Playing: {1} [{2:000000} / {3:000000}] at {4:0.00000}";
 		private const string PlayerFormat = "PLAYER[{0}]: HP( {1:000} / {2:000} ), POW( {3:000} / {4:000} ), STA( {5:000} / {6:000} )";
 		private const string StatFormat = "STATS: ";
 		private SpriteFont _debugFont;
@@ -131,7 +131,7 @@ namespace DiseasedToast.GameScreens
 				Visible = true,
 				Font = Game.Content.Load<SpriteFont>(@"Fonts\ControlFont"),
 				Name = "ZoneLabel",
-				Position = new Vector2(50, 100),
+				Position = new Vector2(20, 100),
 				Text = "%ZONE_NAME%",
 				TabStop = false
 			};
@@ -261,7 +261,7 @@ namespace DiseasedToast.GameScreens
 			_manaBar.Draw(GameRef.SpriteBatch);
 			_staminaBar.Draw(GameRef.SpriteBatch);
 
-			if (_activeText != null && _activeText.Active)
+			if (_activeText != null)
 				_zoneLabel.Draw(GameRef.SpriteBatch, _activeText.Opacity);
 
 #if DEBUG
@@ -273,34 +273,18 @@ namespace DiseasedToast.GameScreens
 
 		private void UpdateTexts(GameTime gameTime)
 		{
-			if (_activeText != null && _activeText.Active)
-			{
-				_activeText.Update(gameTime);
-
-				if (_activeText.Intersects(_player.Sprite.Rectangle))
-					return;
-
-				_activeText.Mod = -Text.FadeMod;
-				if (_activeText.Opacity <= 0.0f)
-				{
-					Log.DebugFormat("Hiding text {0} of type {1}", _activeText.Name, _activeText.Type);
-					_activeText.Active = false;
-				}
-			}
-
-			var text = _map.TextManager.GetIntersecting(_player.Sprite.Rectangle);
+			_map.TextManager.Update(gameTime, _player.Sprite.Rectangle);
+			var text = _map.TextManager.GetActive();
+			
 			if (text == null)
-				return; // Player is not intersecting with any text
+				return;
+
 			_activeText = text;
-			_activeText.Opacity = 0.0f;
-			_activeText.Mod = Text.FadeMod;
-			_activeText.Active = true;
 			_zoneLabel.Text = _activeText.Title;
 			_zoneLabel.AutoSize();
-			_zoneLabel.CenterHorizontal(GameRef.ScreenRectangle.Width, _zoneLabel.Position.Y);
-			Log.DebugFormat("Entered text {0} ({1}): {2} - {3}", _activeText.Name, _activeText.Type, _activeText.Title, _activeText.SubTitle ?? "<No Subtitle>");
 		}
 
+#if DEBUG
 		private void UpdateDebug(GameTime gameTime)
 		{
 			if (InputHandler.KeyReleased(Keys.F3))
@@ -319,7 +303,7 @@ namespace DiseasedToast.GameScreens
 
 			Point playerPos = _map.VectorToCell(_player.Sprite.Position);
 			_posLabel.Text = string.Format(PositionFormat, _player.Sprite.Position.X, _player.Sprite.Position.Y, _player.Sprite.Position.X / _map.TileWidth, _player.Sprite.Position.Y / _map.TileHeight, playerPos.X, playerPos.Y);
-			_levelLabel.Text = string.Format(LevelFormat, GameRef.World.CurrentLevel.Name, GameRef.AudioManager.Song.NowPlaying.Name, GameRef.AudioManager.Song.GetPosition(), GameRef.AudioManager.Song.GetLength(), GameRef.AudioManager.Song.GetVolume());
+			_levelLabel.Text = string.Format(LevelFormat, GameRef.World.CurrentLevel.Name, GameRef.AudioManager.Song.NowPlaying.Name, GameRef.AudioManager.Song.GetPosition(), GameRef.AudioManager.Song.GetLength(), GameRef.AudioManager.Song.GetVolume(), GameRef.FPS);
 			_playerLabel.Text = string.Format(PlayerFormat, _player.Character.Entity.Name,
 											  _player.Character.Entity.Health.Current, _player.Character.Entity.Health.Maximum,
 											  _player.Character.Entity.Mana.Current, _player.Character.Entity.Mana.Maximum,
@@ -338,6 +322,7 @@ namespace DiseasedToast.GameScreens
 				_infoLabel.Draw(GameRef.SpriteBatch);
 			_helpLabel.Draw(GameRef.SpriteBatch);
 		}
+#endif
 
 		#endregion XNA Methods
 
