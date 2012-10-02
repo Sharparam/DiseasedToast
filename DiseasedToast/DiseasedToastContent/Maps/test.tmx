@@ -10,9 +10,6 @@
   <image source="../Tilesets/generic.png" width="256" height="256"/>
  </tileset>
  <layer name="background" width="50" height="50">
-  <properties>
-   <property name="playerDraw" value=""/>
-  </properties>
   <data encoding="base64" compression="zlib">
    eJztlvlSwjAQh4P3/U4VEfC+9XXQv1S8FVEUwSf1l8lmBmNDQ0shGXdnvgkEmu7XpMkKwcHBwaGiMCby8IgMCj2tjbjfzb6oz/h5ebjkGZef2W/mbhvLd49+7SjXVZKHLXfXdeXLfJhr3dXDp3WVNEe+epjPPIuHOVYeHuPgP8d5BnwKmc89uAHPxCv1v1N/nfo+RH+Pa/qfHucBtKiV/Y2cPWxIjy8ihPmQz1k+95b4/cz13HTBJX3/oO8+eaTdTzYyXDsIE2ASTIFpMANmwVxAHvNgASyCJbAMVgKcjwisgiJYAyWwDsqgEpBHle6zCbbANtgBu2AvII99cAAOwRE4BifgFJwF5FETak+8EMnhs4fc56+EOlvlOSzPhVtwJ9S5HYqHrAEewZNQ59aLUPWAPM+ahkc1JZUM17ryJlQ9oc/mT9AWqrboJMyH3NciC2VjPnQN0On53Ka2QX01R+Lmowu+hVvEeZQo7yK1JSLOQ96rSbnX6L66HtR9NrRv3eIxSKRdO8NcV5UheKR9l4f5ntvGYg/2YA/2cPVI2ndD8XDF5uvq6ouHLQ/Xtcceo/FwrV3yrkuyemSFPdhj3B4cHBx/4wc+F5Td
   </data>
@@ -164,14 +161,39 @@
     <property name="title" value="Z"/>
    </properties>
   </object>
-  <object name="path_enter_text" type="zone" x="1120" y="992" width="32" height="96">
+  <object name="path_enter_text" type="zone" x="1120" y="992" width="32" height="32">
    <properties>
     <property name="title" value="The Winding Path"/>
    </properties>
   </object>
-  <object name="path_exit_text" type="zone" x="608" y="1440" width="32" height="32">
+  <object name="path_enter_text2" type="zone" x="608" y="1440" width="32" height="32">
    <properties>
-    <property name="title" value="The Forest..."/>
+    <property name="title" value="The Winding Path"/>
+   </properties>
+  </object>
+  <object name="forest_text" type="zone" x="480" y="1152" width="96" height="96">
+   <properties>
+    <property name="title" value="The Forest"/>
+   </properties>
+  </object>
+  <object name="forest_text5" type="zone" x="1280" y="768" width="320" height="192">
+   <properties>
+    <property name="title" value="The Forest"/>
+   </properties>
+  </object>
+  <object name="forest_text2" type="zone" x="512" y="864" width="672" height="128">
+   <properties>
+    <property name="title" value="The Forest"/>
+   </properties>
+  </object>
+  <object name="forest_text3" type="zone" x="160" y="832" width="320" height="160">
+   <properties>
+    <property name="title" value="The Forest"/>
+   </properties>
+  </object>
+  <object name="forest_text4" type="zone" x="608" y="1472" width="32" height="32">
+   <properties>
+    <property name="title" value="The Forest"/>
    </properties>
   </object>
  </objectgroup>
